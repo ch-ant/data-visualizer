@@ -1,4 +1,8 @@
 /**
+ * MySQL install commands:
+ *  npm install mysql
+ *  npm install @types/mysql
+ *
  * Run js build: node build/server.js
  * Run ts src: nodemon src/server.ts
  */
@@ -9,6 +13,7 @@ import bodyParser from 'body-parser';
 import logging from './config/logging';
 import config from './config/config';
 import sampleRoute from './route/sample';
+import countryRoute from './route/country';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -43,6 +48,7 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use('/sample', sampleRoute);
+router.use('/', countryRoute);
 
 /** Error handling */
 router.use((req, res, next) => {
