@@ -128,3 +128,5 @@ dist
 
 # custom
 db/schema/queries.sql
+report.docx
+~$report.docx
