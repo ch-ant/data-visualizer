@@ -7,8 +7,16 @@
 #   in a format that is ready to be loaded into the database using 
 #   the load.sql script in the same directory. Input and output directories
 #   as well as names for the transformed data files can be specified below.
+#
+#   Important Notes:
 #   The extracted data files must be placed in the input directory that 
-#   was specified.
+#   was specified. Multiple extracted data files can be placed and transformed
+#   at once. It is important for the correct execution of the script that the 
+#   extracted data files names retain the naming conventions as extracted 
+#   from https://data.worldbank.org/country. More specifically, indicator
+#   metadata files should begin with 'Metadata_Indicator', country metadata
+#   files should begin with 'Metadata_Country' and data files should begin
+#   with 'API'.
 #
 #   Run command:    python transform.py
 #   Preferably execute in Linux environment   
