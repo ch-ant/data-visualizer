@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE || 'countries_data';
-const MYSQL_USER = process.env.MYSQL_USER || 'root';
-const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || '146146';
+const MYSQL_DATABASE = process.env.MYSQL_DATABASE || 'data_visualizer';
+const MYSQL_USER = process.env.MYSQL_USER || 'user';
+const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || 'pass';
 
 const MYSQL = {
     host: MYSQL_HOST,
