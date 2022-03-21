@@ -130,3 +130,5 @@ dist
 db/schema/queries.sql
 report.docx
 ~$report.docx
+*.docx
+*.tmp
