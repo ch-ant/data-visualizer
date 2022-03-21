@@ -9,7 +9,6 @@
 
 import http from 'http';
 import express from 'express';
-import bodyParser from 'body-parser';
 import logging from './config/logging';
 import config from './config/config';
 import sampleRoute from './route/sample';
@@ -29,11 +28,11 @@ router.use((req, res, next) => {
     next();
 });
 
-/** Parse the request */
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
+/** Parse the Request Body*/
+router.use(express.urlencoded({ extended: true }));
+router.use(express.json());
 
-/** Rules of our API */
+/** API Access Policies */
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -54,7 +53,7 @@ router.use('/', countryRoute);
 router.use((req, res, next) => {
     const error = new Error('Not found');
 
-    res.status(404).json({
+    return res.status(404).json({
         message: error.message
     });
 
