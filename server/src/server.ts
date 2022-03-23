@@ -19,10 +19,10 @@ const router = express();
 
 /** Logging the request */
 router.use((req, res, next) => {
-    logging.info(NAMESPACE, `METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}]`);
+    logging.info(`METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}]`);
 
     res.on('finish', () => {
-        logging.info(NAMESPACE, `METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}]`);
+        logging.info(`METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}]`);
     });
 
     next();
@@ -62,4 +62,4 @@ router.use((req, res, next) => {
 
 /** Create the server */
 const httpServer = http.createServer(router);
-httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server running on http://${config.server.hostname}:${config.server.port}`));
+httpServer.listen(config.server.port, () => logging.info(`Server running on http://${config.server.hostname}:${config.server.port}`));

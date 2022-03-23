@@ -1,37 +1,39 @@
+const DEFAULT_NAMESPACE = 'Client';
+
+const info = (message: string, object?: any, namespace?: string) => {
+    if (object) {
+        console.info(`[${getDate()}] [INFO] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`, object);
+    } else {
+        console.info(`[${getDate()}] [INFO] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`);
+    }
+};
+
+const warn = (message: string, object?: any, namespace?: string) => {
+    if (object) {
+        console.warn(`[${getDate()}] [WARN] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`, object);
+    } else {
+        console.warn(`[${getDate()}] [WARN] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`);
+    }
+};
+
+const error = (message: string, object?: any, namespace?: string) => {
+    if (object) {
+        console.error(`[${getDate()}] [ERROR] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`, object);
+    } else {
+        console.error(`[${getDate()}] [ERROR] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`);
+    }
+};
+
+const debug = (message: string, object?: any, namespace?: string) => {
+    if (object) {
+        console.debug(`[${getDate()}] [DEBUG] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`, object);
+    } else {
+        console.debug(`[${getDate()}] [DEBUG] [${namespace || DEFAULT_NAMESPACE}]\n${message}\n`);
+    }
+};
+
 const getDate = (): string => {
-    return new Date().toISOString();
-};
-
-const info = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.info(`[${getDate()}] [INFO] [${namespace}]\n${message}\n`, object);
-    } else {
-        console.info(`[${getDate()}] [INFO] [${namespace}]\n${message}\n`);
-    }
-};
-
-const warn = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.warn(`[${getDate()}] [WARN] [${namespace}]\n${message}\n`, object);
-    } else {
-        console.warn(`[${getDate()}] [INFO] [${namespace}]\n${message}\n`);
-    }
-};
-
-const error = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.error(`[${getDate()}] [ERROR] [${namespace}]\n${message}\n`, object);
-    } else {
-        console.error(`[${getDate()}] [ERROR] [${namespace}]\n${message}\n`);
-    }
-};
-
-const debug = (namespace: string, message: string, object?: any) => {
-    if (object) {
-        console.debug(`[${getDate()}] [DEBUG] [${namespace}]\n${message}\n`, object);
-    } else {
-        console.debug(`[${getDate()}] [DEBUG] [${namespace}]\n${message}\n`);
-    }
+    return new Date().toLocaleTimeString();
 };
 
 export default {

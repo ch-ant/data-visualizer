@@ -9,8 +9,6 @@ import IPageProps from '../interfaces/page';
 import CountryPreview from '../components/CountryPreview';
 
 const HomePage: React.FunctionComponent<IPageProps> = (props) => {
-    logging.info('NAMESPACE', `This is just a test api call to: ${config.server.url}/get/countries`);
-
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
@@ -20,6 +18,8 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     }, []);
 
     const getAllCountries = async () => {
+        logging.info(`This is just a test api call to: ${config.server.url}/get/countries`);
+
         try {
             const response = await axios({
                 method: 'GET',
@@ -27,7 +27,7 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
             });
 
             if (response.status == (200 || 304)) {
-                logging.info('NAMESPACE', `Fetched countries:`, response.data.results);
+                logging.info(`Fetched countries:`, response.data.results);
                 let countries = response.data.results as ICountry[];
 
                 // Optionally sort the countries alphabetically based on names
@@ -50,8 +50,6 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     }
 
     return (
-        // TODO
-        // return page containing the countries
         <Container fluid className="p-0">
             {/* <Navigation /> */}
             {/* <Header headline="Check out all the available countries" title="They will eventually get visualized!" /> */}
