@@ -19,6 +19,7 @@ const CountryPreview: React.FunctionComponent<ICountryPreviewProps> = (props) =>
                 <h3>
                     {name} - {code}
                 </h3>
+                <p>ID: {id}</p>
                 {!region || region.length === 0 || <p>Region: {region}</p>}
                 {!income_group || income_group.length === 0 || <p>Income Group: {income_group}</p>}
                 {!special_notes || special_notes.length === 0 || <p>Special Notes: {special_notes}</p>}
