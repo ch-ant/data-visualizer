@@ -6,11 +6,12 @@ import config from '../config/config';
 import logging from '../config/logging';
 import ICountry from '../model/country';
 import IPageProps from '../interfaces/page';
+import CountryPreview from '../components/CountryPreview';
 
 const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     logging.info('NAMESPACE', `This is just a test api call to: ${config.server.url}/get/countries`);
 
-    const [countries, setCountries] = useState<ICountry[] | null>(null);
+    const [countries, setCountries] = useState<ICountry[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
 
@@ -26,8 +27,11 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
             });
 
             if (response.status == (200 || 304)) {
-                logging.info('NAMESPACE', `Fetched countries:`, response.data);
-                let countries = response.data.countries as ICountry[];
+                logging.info('NAMESPACE', `Fetched countries:`, response.data.results);
+                let countries = response.data.results as ICountry[];
+
+                // Optionally sort the countries alphabetically based on names
+                countries.sort((x, y) => x.name.localeCompare(y.name));
                 setCountries(countries);
             } else {
                 setError(`Unable to retrieve countries`);
@@ -49,12 +53,21 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
         // TODO
         // return page containing the countries
         <Container fluid className="p-0">
-            {/* <Navigation />
-            <Header headline="Check out all the available countries" title="They will eventually get visualized!" /> */}
+            {/* <Navigation /> */}
+            {/* <Header headline="Check out all the available countries" title="They will eventually get visualized!" /> */}
             <Container className="mt-5">
-                {countries?.length === 0 && <p>There are no countries in the database. Sorry! 😢😢😢</p>}
-                {countries?.map((country, index) => {
-                    return <div key={index}></div>;
+                {countries.length === 0 && (
+                    <p>
+                        There are no countries in the database.<br></br> Sorry! 😢
+                    </p>
+                )}
+                {countries.map((country, index) => {
+                    return (
+                        <div key={index}>
+                            <CountryPreview id={country.id} name={country.name} code={country.code} region={country.region} income_group={country.income_group} special_notes={country.special_notes} />
+                            <hr />
+                        </div>
+                    );
                 })}
             </Container>
         </Container>
