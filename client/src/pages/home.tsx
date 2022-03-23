@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
-import LoadingComponent from '../components/LoadingComponent';
+import LoadingComponent from '../components/Loading';
 import config from '../config/config';
 import logging from '../config/logging';
 import ICountry from '../model/country';
