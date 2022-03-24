@@ -13,6 +13,7 @@ import logging from './config/logging';
 import config from './config/config';
 import sampleRoute from './route/sample';
 import countryRoute from './route/country';
+import measurementRoute from './route/measurement';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -48,6 +49,7 @@ router.use((req, res, next) => {
 /** Routes */
 router.use('/sample', sampleRoute);
 router.use('/', countryRoute);
+router.use('/', measurementRoute);
 
 /** Error handling */
 router.use((req, res, next) => {

@@ -133,3 +133,4 @@ report.docx
 *.docx
 *.tmp
 notes
+server/db/schema/queries.sql
