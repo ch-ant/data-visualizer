@@ -23,7 +23,10 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
         try {
             const response = await axios({
                 method: 'GET',
-                url: `${config.server.url}/get/countries`
+                url: `${config.server.url}/get/countries`,
+                params: {
+                    id: 1
+                }
             });
 
             if (response.status == (200 || 304)) {

@@ -7,7 +7,9 @@ const NAMESPACE = 'Countries';
 const getAllCountries = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Getting all countries.');
 
-    let query = 'SELECT * FROM countries LIMIT 5;';
+    let { id } = req.query;
+    let query = `SELECT * FROM countries WHERE id=${id} LIMIT 5;`;
+    logging.debug(query);
 
     Connect()
         .then((connection) => {
