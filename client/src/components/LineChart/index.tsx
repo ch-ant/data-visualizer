@@ -1,21 +1,18 @@
 import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import logging from '../../config/logging';
+import { colors } from '../../assets/colors';
 
-export interface Item {
-    name: string;
-    uv: number;
-    pv: number;
-    amt: number;
-}
 export interface ILineChart {
-    data: Array<Item>;
+    data: Array<any>;
+    keys: Array<string>;
 }
 
 const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
-    const { children, data } = props;
+    const { children, data, keys } = props;
 
     return (
-        <div style={{ width: 625, height: 375 }}>
+        <div style={{ width: 800, height: 475 }}>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
@@ -27,13 +24,15 @@ const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
                     }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey={keys[0]} />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip position={{ x: 200, y: -200 }} />
                     <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 5 }} />
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="amt" stroke="#e2aa2d" />
+                    {keys.map((key, index) => {
+                        if (index > 0) {
+                            return <Line key={index} type="monotone" dataKey={keys[index]} stroke={colors[index]} activeDot={{ r: 5 }} />;
+                        }
+                    })}
                 </LineChart>
             </ResponsiveContainer>
         </div>

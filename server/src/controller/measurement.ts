@@ -14,7 +14,8 @@ const getMeasurements = (req: Request, res: Response, next: NextFunction) => {
         \`2016\`, \`2017\`, \`2018\`, \`2019\`, \`2020\`
         FROM measurements, countries, indicators
         WHERE (countries.id = ${id}
-			AND (indicators.id = 1 OR indicators.id = 2))
+			AND (indicators.id = 4 OR indicators.id = 2 
+            OR indicators.id = 3 OR indicators.id = 5 OR indicators.id = 9))
         AND countries.id = measurements.country_id
 		AND indicators.id = measurements.indicator_id
         LIMIT 5;`;
