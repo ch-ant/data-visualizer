@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody } from 'reactstrap';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
 export interface ICountryPreviewProps {
     id: bigint;
@@ -14,11 +14,13 @@ const CountryPreview: React.FunctionComponent<ICountryPreviewProps> = (props) =>
     const { id, children, name, code, region, income_group, special_notes } = props;
 
     return (
-        <Card className="border-0">
-            <CardBody className="p-5">
+        <Card className="border-2">
+            <CardHeader>
                 <h3>
                     {name} - {code}
                 </h3>
+            </CardHeader>
+            <CardBody className="p-5">
                 <p>ID: {id}</p>
                 {!region || region.length === 0 || <p>Region: {region}</p>}
                 {!income_group || income_group.length === 0 || <p>Income Group: {income_group}</p>}
