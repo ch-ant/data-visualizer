@@ -11,19 +11,19 @@ import Navigation from '../components/Navigation';
 import Background from '../components/Background';
 import LineChartParams from '../components/LineChartParams';
 import { Link } from 'react-router-dom';
-import { ButtonGroup } from 'react-bootstrap';
 import IIndicator from '../model/indicator';
+import ChartSelectionButtonGroup from '../components/ChartSelectionButtonGroup';
+import Gradient from '../components/Gradient';
 
 const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [indicators, setIndicators] = useState<IIndicator[]>([]);
-
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>('');
-    const [opacity, setOpacity] = useState<number>(1.0);
+    const [inputCardsCounter, setInputCardsCounter] = useState<number>(0);
     const [lineChartSelected, setLineChartSelected] = useState<boolean>(false);
     const [barChartSelected, setBarChartSelected] = useState<boolean>(false);
     const [scatterPlotSelected, setScatterPlotSelected] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         getAllcountries();
@@ -95,46 +95,8 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
             <Navigation />
             <Background url={''}></Background>
             <Header headline="And they will come to life" title="Select Data"></Header>
-            <div
-                style={{
-                    background: `linear-gradient(rgba(33, 33, 33, ${opacity}), rgba(24, 24, 40, 0.8))`,
-                    position: 'absolute',
-                    objectFit: 'fill',
-                    width: '100%',
-                    height: '700px'
-                }}
-            >
-                <div className="d-flex justify-content-center mt-5">
-                    <ButtonGroup aria-label="outlined primary button group">
-                        <Button
-                            onClick={() => {
-                                setLineChartSelected(true);
-                                setBarChartSelected(false);
-                                setScatterPlotSelected(false);
-                            }}
-                        >
-                            Line Chart
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                setLineChartSelected(false);
-                                setBarChartSelected(true);
-                                setScatterPlotSelected(false);
-                            }}
-                        >
-                            Bar Chart
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                setLineChartSelected(false);
-                                setBarChartSelected(false);
-                                setScatterPlotSelected(true);
-                            }}
-                        >
-                            Scatter Plot
-                        </Button>
-                    </ButtonGroup>
-                </div>
+            <Gradient rgba1={'rgba(33, 33, 33, 1.0)'} rgba2={'rgba(24, 24, 40, 0.8)'}>
+                <ChartSelectionButtonGroup firstOption={setLineChartSelected} secondOption={setBarChartSelected} thirdOption={setScatterPlotSelected}></ChartSelectionButtonGroup>
 
                 {lineChartSelected ? (
                     <Fade>
@@ -157,7 +119,7 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
                         </Container>
                         <div className="d-flex justify-content-center mt-5">
                             <strong>
-                                <Button tag={Link} to="/visual">
+                                <Button size="lg" tag={Link} to="/visual">
                                     Visualize
                                 </Button>
                             </strong>
@@ -166,7 +128,7 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
                 ) : (
                     <div></div>
                 )}
-            </div>
+            </Gradient>
         </Container>
     );
 };

@@ -17,8 +17,6 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
     let { indicators } = props;
 
     const [text, setText] = useState('');
-    // items looks like this: [{name: 'name1'}, {name: 'name2'}]
-
     const filteredItems = getFilteredItems(text, indicators);
 
     return (
