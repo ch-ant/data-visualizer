@@ -1,5 +1,6 @@
 import IRoute from '../interfaces/route';
 import HomePage from '../pages/home';
+import Select from '../pages/select';
 import Visualization from '../pages/visualization';
 
 const mainRoutes: IRoute[] = [
@@ -10,6 +11,10 @@ const mainRoutes: IRoute[] = [
     {
         path: '/visual',
         element: <Visualization />
+    },
+    {
+        path: '/select',
+        element: <Select />
     }
 ];
 

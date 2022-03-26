@@ -4,6 +4,7 @@ import { Card, CardBody, Container } from 'reactstrap';
 import CenterPiece from '../components/CenterPiece';
 import LineChartComponent from '../components/LineChart';
 import LoadingComponent from '../components/Loading';
+import Navigation from '../components/Navigation';
 import config from '../config/config';
 import logging from '../config/logging';
 import IPageProps from '../interfaces/page';
@@ -41,7 +42,7 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
                 setKeys(keys);
                 logging.debug(`Keys: `, keys);
             } else {
-                setError(`Unable to retrieve countries`);
+                setError(`Unable to retrieve measurements`);
             }
         } catch (error: any) {
             setError(error.message);
@@ -58,6 +59,7 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
 
     return (
         <Container fluid className="p-0">
+            <Navigation />
             <CenterPiece>
                 <Card className="text-center p-5">
                     <CardBody>
