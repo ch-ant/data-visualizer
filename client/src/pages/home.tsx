@@ -1,35 +1,32 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Button, Container } from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, Card, CardText, Col, Container, Fade, Row } from 'reactstrap';
 import LoadingComponent from '../components/Loading';
 import config from '../config/config';
 import logging from '../config/logging';
 import ICountry from '../model/country';
 import IPageProps from '../interfaces/page';
-import CountryPreview from '../components/CountryPreview';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
-import { Link } from 'react-router-dom';
 import CenterPiece from '../components/CenterPiece';
+import Background from '../components/Background';
+import { Link } from 'react-router-dom';
 
 const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     const [countries, setCountries] = useState<ICountry[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
-
-    useEffect(() => {
-        getAllCountries();
-    }, []);
+    const [opacity, setOpacity] = useState<number>(0.3);
 
     const getAllCountries = async () => {
-        logging.info(`This is just a test api call to: ${config.server.url}/get/countries`);
+        setLoading(true);
 
         try {
             const response = await axios({
                 method: 'GET',
                 url: `${config.server.url}/get/countries`,
                 params: {
-                    id: 1
+                    id: 3
                 }
             });
 
@@ -56,50 +53,43 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
         return <LoadingComponent>Loading countries...</LoadingComponent>;
     }
 
-    const videoUrl =
-        'https://vod-progressive.akamaized.net/exp=1648170358~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1767%2F11%2F283838731%2F1067680839.mp4~hmac=fabf13fe3bf271c1ec23886be2f196d22950bc907a6ddfe8410ea7992a9824fa/vimeo-prod-skyfire-std-us/01/1767/11/283838731/1067680839.mp4?filename=Cosmos+-+17692.mp4';
     return (
         <Container fluid className="p-0">
             <Navigation />
-            <Header headline="Insightful data at a glance" title="Data Visualizer">
-                <br></br>
-                <br></br>
-            </Header>
+            <Background url={''}></Background>
+            <Header headline="Insightful data at a glance" title="Data Visualizer"></Header>
             <div
                 style={{
-                    background: 'linear-gradient(rgba(33, 33, 33, 1.0), rgba(24, 24, 40, 0.7)',
+                    background: `linear-gradient(rgba(33, 33, 33, ${opacity}), rgba(24, 24, 40, 0.5)`,
                     position: 'absolute',
+                    objectFit: 'fill',
                     width: '100%',
-                    height: '100%'
+                    height: '700px'
                 }}
             >
-                <Container className="mt-5">
-                    {countries.length === 0 && (
-                        <p>
-                            There are no countries in the database.<br></br> Sorry! 😢
-                        </p>
-                    )}
-                    {countries.map((country, index) => {
-                        return (
-                            <div key={index}>
-                                <CountryPreview
-                                    id={country.id}
-                                    name={country.name}
-                                    code={country.code}
-                                    region={country.region}
-                                    income_group={country.income_group}
-                                    special_notes={country.special_notes}
-                                />
-                                <hr />
-                            </div>
-                        );
-                    })}
+                <Fade>
                     <CenterPiece>
-                        <Button color="light" outline size="large" onClick={() => getAllCountries()}>
-                            Let's go
-                        </Button>
+                        <Row className="d-flex justify-content-center">
+                            <Col sm="15">
+                                <Card body>
+                                    <CardText>
+                                        <p>
+                                            The final goal of the project was to implement a data <br></br>visualization application which utilizes data integrated <br></br>into a database. The
+                                            application should be able to be <br></br>used in order to visually draw conclusions regarding the <br></br>depicted data. The data which populates the
+                                            database
+                                            <br></br>was extracted from The World Bank and it contains various <br></br>measurements per year for different indicators for the
+                                            <br></br>
+                                            countries of the European Union.
+                                        </p>
+                                    </CardText>
+                                    <Button tag={Link} to="/select">
+                                        Let's go
+                                    </Button>
+                                </Card>
+                            </Col>
+                        </Row>
                     </CenterPiece>
-                </Container>
+                </Fade>
             </div>
         </Container>
     );
