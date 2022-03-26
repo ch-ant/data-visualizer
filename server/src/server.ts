@@ -11,11 +11,8 @@ import http from 'http';
 import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
-import sampleRoute from './route/sample';
-import countryRoute from './route/country';
-import measurementRoute from './route/measurement';
+import routes from './routes';
 
-const NAMESPACE = 'Server';
 const router = express();
 
 /** Logging the request */
@@ -47,9 +44,7 @@ router.use((req, res, next) => {
 });
 
 /** Routes */
-router.use('/sample', sampleRoute);
-router.use('/', countryRoute);
-router.use('/', measurementRoute);
+router.use('/', routes);
 
 /** Error handling */
 router.use((req, res, next) => {
@@ -58,8 +53,6 @@ router.use((req, res, next) => {
     return res.status(404).json({
         message: error.message
     });
-
-    next();
 });
 
 /** Create the server */
