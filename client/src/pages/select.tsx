@@ -36,7 +36,7 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
         try {
             const response = await axios({
                 method: 'GET',
-                url: `${config.server.url}/get/countries/names`
+                url: `${config.server.url}/get/countries`
             });
 
             if (response.status == (200 || 304)) {

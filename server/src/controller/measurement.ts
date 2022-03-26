@@ -9,7 +9,7 @@ const getMeasurements = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Getting measurements.');
 
     let { id } = req.query;
-    let query = `SELECT countries.name, indicators.code,
+    let query = `SELECT indicators.name AS indicator, countries.name AS country, 
         \`2010\`, \`2011\`, \`2012\`, \`2013\`, \`2014\`, \`2015\`,
         \`2016\`, \`2017\`, \`2018\`, \`2019\`, \`2020\`
         FROM measurements, countries, indicators

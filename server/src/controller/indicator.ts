@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
-import formatResponse from '../middleware/formatResponse';
 
 const NAMESPACE = 'Indicators';
 

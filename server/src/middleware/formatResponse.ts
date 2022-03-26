@@ -1,12 +1,7 @@
 import logging from '../config/logging';
-import { Request, Response, NextFunction } from 'express';
 
 export interface CustomResponseItem extends Record<string, any> {
     year: string;
-}
-
-function isNumeric(n: any) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 const formatResponse = (results: unknown) => {
@@ -16,18 +11,19 @@ const formatResponse = (results: unknown) => {
 
     for (let item of results as Array<Object>) {
         let values = Object.values(item);
-        let name = values.filter((x) => isNaN(x)).toString();
+        let name = values.filter((x) => isNaN(x)).join(' - ');
         let filteredValues = values.filter(Number.isFinite);
 
-        logging.debug('Names: ', name);
-        logging.debug('Values: ', filteredValues);
-        logging.debug('Values length: ', filteredValues.length);
+        // logging.debug('Names: ', name);
+        // logging.debug('Values: ', filteredValues);
+        // logging.debug('Values length: ', filteredValues.length);
 
         let counter = 0;
 
         for (let key of Object.keys(item).filter(Number)) {
-            let obj: any = {};
-            obj.year = key;
+            let obj: CustomResponseItem = {
+                year: key
+            };
 
             if (!customResponse.some((item) => item.year === key)) {
                 customResponse.push(obj);
@@ -36,9 +32,8 @@ const formatResponse = (results: unknown) => {
 
             existingObj[name] = values[counter++];
         }
-
-        logging.debug('Custom Response: ', customResponse);
     }
+    logging.debug('Custom Response: ', customResponse);
 
     return customResponse;
 };

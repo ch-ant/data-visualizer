@@ -1,5 +1,5 @@
 import express from 'express';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import countryController from './controller/country';
 import indicatorController from './controller/indicator';
 import measurementController from './controller/measurement';
@@ -14,6 +14,7 @@ router.get('/check', (req: Request, res: Response) => {
         message: `Server is up and running on: http://${config.server.hostname}:${config.server.port}`
     });
 });
+
 router.get('/get/countries', countryController.getAllCountries);
 router.get('/get/indicators', indicatorController.getAllIndicators);
 router.get('/get/measurements', measurementController.getMeasurements);
