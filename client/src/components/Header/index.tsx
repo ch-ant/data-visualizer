@@ -1,7 +1,5 @@
 import React from 'react';
 import { Col, Container, Fade, Row } from 'reactstrap';
-import backgroundVideo from '../../assets/mp4/bg.mp4';
-import Background from '../Background';
 
 export interface IHeaderProps {
     height?: string;

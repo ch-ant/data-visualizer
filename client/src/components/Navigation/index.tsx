@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, Nav, NavbarText, Container, Button } from 'reactstrap';
 import logging from '../../config/logging';
-import { ReactComponent as World } from '../../assets/svg/undraw_traveling_re_weve 1 (1).svg';
 
 export interface INavigationProps {}
 

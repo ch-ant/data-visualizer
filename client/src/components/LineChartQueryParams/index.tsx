@@ -17,78 +17,87 @@ export interface ILineChartQueryParams {
 const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (props) => {
     const { queryParams, countries, indicators, setQueryParamsCounter } = props;
 
+    const addCountryIndicatorButton = (
+        <Button
+            color="light"
+            outline
+            style={{
+                marginTop: '40px'
+            }}
+            onClick={() => {
+                addNewQueryParam();
+            }}
+        >
+            Add Country / Indicator
+        </Button>
+    );
+
+    function addNewQueryParam() {
+        let newQueryParam: IQueryParam = {
+            id: queryParams.length,
+            countryCode: '',
+            countryName: '',
+            indicatorCode: '',
+            indicatorName: ''
+        };
+        queryParams.push(newQueryParam);
+        setQueryParamsCounter(queryParams.length);
+
+        logging.debug('Query params: ', queryParams);
+    }
+
+    const addCountryIndicatorButtonStyle = {
+        paddingLeft: '49px',
+        paddingRight: '48px',
+        paddingTop: '5px',
+        paddingBottom: '5px'
+    };
+
+    const visualizeButton = (
+        <div className="d-flex justify-content-center mt-5">
+            <Button
+                size="lg"
+                tag={Link}
+                // to="/visual"
+                to={{
+                    pathname: '/visual',
+                    state: { queryParams: queryParams }
+                }}
+                style={{
+                    marginBottom: '70px'
+                }}
+            >
+                Visualize
+            </Button>
+        </div>
+    );
+
+    function displayQueryParams() {
+        return queryParams.map((queryParam, index) => {
+            return (
+                <Fade key={index}>
+                    <LineChartQueryParam
+                        countries={countries}
+                        indicators={indicators}
+                        queryParams={queryParams}
+                        thisParam={queryParam}
+                        setQueryParamsCounter={setQueryParamsCounter}
+                    ></LineChartQueryParam>
+                </Fade>
+            );
+        });
+    }
+
     return (
         <Fade>
             <Container className="mt-5">
                 <Row className="d-flex justify-content-center">
-                    {queryParams.map((queryParam, index) => {
-                        return (
-                            <Fade key={index}>
-                                <LineChartQueryParam
-                                    countries={countries}
-                                    indicators={indicators}
-                                    queryParams={queryParams}
-                                    thisParam={queryParam}
-                                    setQueryParamsCounter={setQueryParamsCounter}
-                                ></LineChartQueryParam>
-                            </Fade>
-                        );
-                    })}
+                    {displayQueryParams()}
 
-                    <div
-                        // className="d-flex justify-content-center"
-                        style={{
-                            paddingLeft: '49px',
-                            paddingRight: '48px',
-                            paddingTop: '5px',
-                            paddingBottom: '5px'
-                        }}
-                    >
-                        <Fade>
-                            <Button
-                                color="light"
-                                outline
-                                style={{
-                                    marginTop: '40px'
-                                }}
-                                onClick={() => {
-                                    let newQueryParam: IQueryParam = {
-                                        id: queryParams.length,
-                                        countryCode: '',
-                                        countryName: '',
-                                        indicatorCode: '',
-                                        indicatorName: ''
-                                    };
-                                    queryParams.push(newQueryParam);
-                                    setQueryParamsCounter(queryParams.length);
-
-                                    logging.debug('Query params: ', queryParams);
-                                }}
-                            >
-                                <strong>Add Country / Indicator</strong>
-                            </Button>
-                        </Fade>
-                    </div>
+                    <div style={addCountryIndicatorButtonStyle}> {addCountryIndicatorButton} </div>
                 </Row>
             </Container>
-            <div className="d-flex justify-content-center mt-5">
-                <strong>
-                    <Button
-                        size="lg"
-                        tag={Link}
-                        // to="/visual"
-                        to={{
-                            pathname: '/visual',
-                            state: { queryParams: queryParams }
-                        }}
-                        style={{
-                            marginBottom: '70px'
-                        }}
-                    >
-                        Visualize
-                    </Button>
-                </strong>
-            </div>
+            {visualizeButton}
         </Fade>
     );
 };

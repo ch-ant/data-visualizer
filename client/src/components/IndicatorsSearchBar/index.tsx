@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Fade, Input, Spinner } from 'reactstrap';
+import { Button, Container, Fade, Input } from 'reactstrap';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../pages/select';
 
