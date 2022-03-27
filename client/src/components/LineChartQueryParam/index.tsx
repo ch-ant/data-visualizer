@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
-import { Button, Card, CardBody, CardHeader, CardText, CardTitle, Col, Row } from 'reactstrap';
-import logging from '../../config/logging';
+import { Button, Card, Col } from 'reactstrap';
 import ICountry from '../../model/country';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../pages/select';
 import CountriesDropdown from '../CountriesDropdown';
-import SearchBar from '../SearchBar';
+import IndicatorsSearchBar from '../IndicatorsSearchBar';
 
-export interface ILineChartParams {
+export interface ILineChartQueryParam {
     setQueryParamsCounter: React.Dispatch<React.SetStateAction<number>>;
     countries: ICountry[];
     indicators: IIndicator[];
@@ -16,7 +15,7 @@ export interface ILineChartParams {
     thisParam: IQueryParam;
 }
 
-const LineChartParams: React.FunctionComponent<ILineChartParams> = (props) => {
+const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (props) => {
     let { countries, indicators, queryParams, thisParam, setQueryParamsCounter } = props;
     const [selectedCountry, setSelectedCountry] = useState<string>('Country');
 
@@ -54,7 +53,7 @@ const LineChartParams: React.FunctionComponent<ILineChartParams> = (props) => {
             <Card body>
                 <CountriesDropdown selectedCountry={selectedCountry} countries={countries} setSelectedCountry={setSelectedCountry} thisParam={thisParam}></CountriesDropdown>
 
-                <SearchBar indicators={indicators} param={thisParam}></SearchBar>
+                <IndicatorsSearchBar indicators={indicators} param={thisParam}></IndicatorsSearchBar>
 
                 {filterTimeSelection}
 
@@ -66,4 +65,4 @@ const LineChartParams: React.FunctionComponent<ILineChartParams> = (props) => {
     );
 };
 
-export default LineChartParams;
+export default LineChartQueryParam;
