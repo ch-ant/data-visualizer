@@ -1,15 +1,17 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { ButtonGroup } from 'react-bootstrap';
+import { IQueryParam } from '../../pages/select';
 
 export interface IChartsSelection {
     firstOption: React.Dispatch<React.SetStateAction<boolean>>;
     secondOption: React.Dispatch<React.SetStateAction<boolean>>;
     thirdOption: React.Dispatch<React.SetStateAction<boolean>>;
+    setQueryParams: React.Dispatch<React.SetStateAction<IQueryParam[]>>;
 }
 
 const ChartSelectionButtonGroup: React.FunctionComponent<IChartsSelection> = (props) => {
-    const { firstOption, secondOption, thirdOption } = props;
+    const { firstOption, secondOption, thirdOption, setQueryParams } = props;
 
     return (
         <div className="d-flex justify-content-center mt-5">
@@ -19,6 +21,7 @@ const ChartSelectionButtonGroup: React.FunctionComponent<IChartsSelection> = (pr
                         firstOption(true);
                         secondOption(false);
                         thirdOption(false);
+                        setQueryParams([]);
                     }}
                 >
                     Line Chart
@@ -28,6 +31,7 @@ const ChartSelectionButtonGroup: React.FunctionComponent<IChartsSelection> = (pr
                         firstOption(false);
                         secondOption(true);
                         thirdOption(false);
+                        setQueryParams([]);
                     }}
                 >
                     Bar Chart
@@ -37,6 +41,7 @@ const ChartSelectionButtonGroup: React.FunctionComponent<IChartsSelection> = (pr
                         firstOption(false);
                         secondOption(false);
                         thirdOption(true);
+                        setQueryParams([]);
                     }}
                 >
                     Scatter Plot

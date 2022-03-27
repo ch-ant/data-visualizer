@@ -4,15 +4,19 @@ import { Button, Card, CardBody, CardHeader, CardText, CardTitle, Col, Row } fro
 import logging from '../../config/logging';
 import ICountry from '../../model/country';
 import IIndicator from '../../model/indicator';
-import SearchBar from '../Search';
+import { IQueryParam } from '../../pages/select';
+import SearchBar from '../SearchBar';
 
 export interface ILineChartParams {
+    setQueryParamsCounter: React.Dispatch<React.SetStateAction<number>>;
     countries: ICountry[];
     indicators: IIndicator[];
+    queryParams: IQueryParam[];
+    thisParam: IQueryParam;
 }
 
 const LineChartParams: React.FunctionComponent<ILineChartParams> = (props) => {
-    let { countries, indicators } = props;
+    let { countries, indicators, queryParams, thisParam, setQueryParamsCounter } = props;
     const [selectedCountry, setSelectedCountry] = useState<string>('Country');
 
     return (
@@ -24,24 +28,24 @@ const LineChartParams: React.FunctionComponent<ILineChartParams> = (props) => {
                             There are no countries in the database.<br></br> Sorry! 😢
                         </p>
                     )}
-                    {countries.map((name, index) => {
+
+                    {countries.map((country, index) => {
                         return (
-                            <div key={index}>
-                                <Dropdown.Item
-                                    onClick={() => {
-                                        setSelectedCountry(name.name);
-                                    }}
-                                >
-                                    {name.name}
-                                </Dropdown.Item>
-                            </div>
+                            <Dropdown.Item
+                                key={index}
+                                onClick={() => {
+                                    setSelectedCountry(country.name);
+                                    thisParam.countryName = country.name;
+                                    thisParam.countryCode = country.code;
+                                }}
+                            >
+                                {country.name}
+                            </Dropdown.Item>
                         );
                     })}
                 </DropdownButton>
-                <SearchBar indicators={indicators}></SearchBar>
-
-                <br></br>
-                <DropdownButton variant="dark" title={selectedCountry}>
+                <SearchBar indicators={indicators} param={thisParam}></SearchBar>
+                <DropdownButton variant="dark" title="TODO">
                     <Dropdown.Item
                         onClick={() => {
                             setSelectedCountry('Action');
@@ -49,23 +53,19 @@ const LineChartParams: React.FunctionComponent<ILineChartParams> = (props) => {
                     >
                         Action
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Item>Another action</Dropdown.Item>
                 </DropdownButton>
                 <br></br>
-
-                <DropdownButton variant="dark" title={selectedCountry}>
-                    <Dropdown.Item
-                        onClick={() => {
-                            setSelectedCountry('Action');
-                        }}
-                    >
-                        Action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </DropdownButton>
-                <Button className="mt-4" color="light" outline>
+                <Button
+                    className="mt-4"
+                    color="light"
+                    outline
+                    onClick={() => {
+                        const index = queryParams.indexOf(thisParam);
+                        queryParams.splice(index, 1);
+                        setQueryParamsCounter(queryParams.length);
+                    }}
+                >
                     Remove
                 </Button>
             </Card>

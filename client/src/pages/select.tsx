@@ -15,11 +15,20 @@ import IIndicator from '../model/indicator';
 import ChartSelectionButtonGroup from '../components/ChartSelectionButtonGroup';
 import Gradient from '../components/Gradient';
 
+export interface IQueryParam {
+    id: number;
+    countryCode: string;
+    countryName: string;
+    indicatorCode: string;
+    indicatorName: string;
+}
+
 const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [indicators, setIndicators] = useState<IIndicator[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [inputCardsCounter, setInputCardsCounter] = useState<number>(0);
+    const [queryParams, setQueryParams] = useState<IQueryParam[]>([]);
+    const [queryParamsCounter, setQueryParamsCounter] = useState<number>(0);
     const [lineChartSelected, setLineChartSelected] = useState<boolean>(false);
     const [barChartSelected, setBarChartSelected] = useState<boolean>(false);
     const [scatterPlotSelected, setScatterPlotSelected] = useState<boolean>(false);
@@ -96,30 +105,82 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
             <Background url={''}></Background>
             <Header headline="And they will come to life" title="Select Data"></Header>
             <Gradient rgba1={'rgba(33, 33, 33, 1.0)'} rgba2={'rgba(24, 24, 40, 0.8)'}>
-                <ChartSelectionButtonGroup firstOption={setLineChartSelected} secondOption={setBarChartSelected} thirdOption={setScatterPlotSelected}></ChartSelectionButtonGroup>
+                <ChartSelectionButtonGroup
+                    firstOption={setLineChartSelected}
+                    secondOption={setBarChartSelected}
+                    thirdOption={setScatterPlotSelected}
+                    setQueryParams={setQueryParams}
+                ></ChartSelectionButtonGroup>
 
                 {lineChartSelected ? (
                     <Fade>
                         <Container className="mt-5">
                             <Row className="d-flex justify-content-center">
-                                <LineChartParams countries={countries} indicators={indicators}></LineChartParams>
+                                {queryParams.map((queryParam, index) => {
+                                    return (
+                                        <Fade key={index}>
+                                            <LineChartParams
+                                                countries={countries}
+                                                indicators={indicators}
+                                                queryParams={queryParams}
+                                                thisParam={queryParam}
+                                                setQueryParamsCounter={setQueryParamsCounter}
+                                            ></LineChartParams>
+                                        </Fade>
+                                    );
+                                })}
+
                                 <div
-                                    className="d-flex justify-content-center"
+                                    // className="d-flex justify-content-center"
                                     style={{
-                                        marginTop: '150px',
-                                        marginLeft: '40px',
-                                        height: '40%'
+                                        paddingLeft: '49px',
+                                        paddingRight: '48px',
+                                        paddingTop: '5px',
+                                        paddingBottom: '5px'
                                     }}
                                 >
-                                    <Button color="light" outline>
-                                        <strong>Add Country / Indicator</strong>
-                                    </Button>
+                                    <Fade>
+                                        <Button
+                                            color="light"
+                                            outline
+                                            style={{
+                                                marginTop: '40px'
+                                            }}
+                                            onClick={() => {
+                                                let newQueryParam: IQueryParam = {
+                                                    id: queryParams.length,
+                                                    countryCode: '',
+                                                    countryName: '',
+                                                    indicatorCode: '',
+                                                    indicatorName: ''
+                                                };
+                                                queryParams.push(newQueryParam);
+                                                setQueryParamsCounter(queryParams.length);
+
+                                                // logging.debug('Query params: ', queryParams);
+                                                // logging.debug('Query params counter: ', queryParamsCounter);
+                                            }}
+                                        >
+                                            <strong>Add Country / Indicator</strong>
+                                        </Button>
+                                    </Fade>
                                 </div>
                             </Row>
                         </Container>
                         <div className="d-flex justify-content-center mt-5">
                             <strong>
-                                <Button size="lg" tag={Link} to="/visual">
+                                <Button
+                                    size="lg"
+                                    tag={Link}
+                                    // to="/visual"
+                                    to={{
+                                        pathname: '/visual',
+                                        state: { queryParams: queryParams }
+                                    }}
+                                    style={{
+                                        marginBottom: '70px'
+                                    }}
+                                >
                                     Visualize
                                 </Button>
                             </strong>
