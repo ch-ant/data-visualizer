@@ -157,8 +157,7 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
                                                 queryParams.push(newQueryParam);
                                                 setQueryParamsCounter(queryParams.length);
 
-                                                // logging.debug('Query params: ', queryParams);
-                                                // logging.debug('Query params counter: ', queryParamsCounter);
+                                                logging.debug('Query params: ', queryParams);
                                             }}
                                         >
                                             <strong>Add Country / Indicator</strong>
