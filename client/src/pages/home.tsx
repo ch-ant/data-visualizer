@@ -8,13 +8,10 @@ import Background from '../components/Background';
 import { Link } from 'react-router-dom';
 import Gradient from '../components/Gradient';
 
-const HomePageText = (
-    <p>
+const HomePageText = `
         The final goal of the project was to implement a data visualization application which utilizes data integrated into a database. The application should be able to be used in order to visually
         draw conclusions regarding the depicted data. The data which populates the database was extracted from The World Bank and it contains various measurements per year for different indicators for
-        the countries of the European Union.
-    </p>
-);
+        the countries of the European Union.`;
 
 const homePageContents = (
     <Fade>

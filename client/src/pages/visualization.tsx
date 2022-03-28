@@ -17,12 +17,14 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
-        logging.info('This is a demo visualization');
         getMeasurements();
     }, []);
 
     const getMeasurements = async () => {
         logging.info(`This is just a test api call to: ${config.server.url}/get/measurements`);
+
+        const queryParams = JSON.parse(sessionStorage.queryParams);
+        logging.debug('visualization received: ', queryParams);
 
         try {
             const response = await axios({

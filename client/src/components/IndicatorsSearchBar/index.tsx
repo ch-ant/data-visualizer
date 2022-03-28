@@ -22,7 +22,7 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [inputText, setInputText] = useState<string>('');
 
-    const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll' };
+    const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll', margin: 0 };
     const selectedIndicatorStyle: React.CSSProperties = {
         textOverflow: 'ellipsis',
         display: 'inline-block',
@@ -51,10 +51,9 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
 
     function displayIndicatorsList() {
         return filteredIndicators.map((indicator, index) => (
-            <Fade>
+            <Fade key={index}>
                 <Dropdown.Item
                     as={Button}
-                    key={index}
                     onClick={() => {
                         selectIndicator(indicator);
                     }}
@@ -73,7 +72,7 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
     }
 
     return (
-        <Dropdown style={{ width: '170%' }} className="mt-3" autoClose={true}>
+        <Dropdown style={{ width: '170%' }} className="mt-3">
             <Dropdown.Toggle variant="dark" id="dropdown-basic" style={selectedIndicatorStyle}>
                 {selectedIndicator}
             </Dropdown.Toggle>

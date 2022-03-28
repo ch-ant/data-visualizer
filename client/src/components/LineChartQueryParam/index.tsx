@@ -47,7 +47,6 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
             className="mt-2"
             color="light"
             outline
-            auto
             size="sm"
             onClick={() => {
                 const index = queryParams.indexOf(thisParam);

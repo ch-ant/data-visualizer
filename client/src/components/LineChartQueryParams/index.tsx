@@ -6,7 +6,6 @@ import LineChartQueryParam from '../LineChartQueryParam';
 import { Link } from 'react-router-dom';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../pages/select';
-import CenterPiece from '../CenterPiece';
 
 export interface ILineChartQueryParams {
     queryParams: IQueryParam[];
@@ -59,13 +58,12 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
             <Button
                 size="lg"
                 tag={Link}
-                // to="/visual"
-                to={{
-                    pathname: '/visual',
-                    state: { queryParams: queryParams }
-                }}
+                to="/visual"
                 style={{
                     marginBottom: '70px'
+                }}
+                onClick={() => {
+                    sessionStorage.queryParams = JSON.stringify(queryParams);
                 }}
             >
                 Visualize

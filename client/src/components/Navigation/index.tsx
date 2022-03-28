@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, Nav, NavbarText, Container, Button } from 'reactstrap';
-import logging from '../../config/logging';
 
 export interface INavigationProps {}
 
@@ -22,7 +21,6 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
         <Navbar style={navigationStyle} dark sticky="top" expand="md">
             <Container>
                 <NavbarBrand tag={Link} to="/home" onClick={() => {}}>
-                    {/* <World width="9%" height="8%" className="ml-2 mr-2"></World> */}
                     Home
                 </NavbarBrand>
                 <Nav className="mr-auto" navbar></Nav>
@@ -32,7 +30,7 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
                         About
                     </Button>
                     <NavbarText className="ml-2 mr-2">|</NavbarText>
-                    <Button size="sm" tag={Link} to="/visual" onClick={() => logging.debug('Clicked')}>
+                    <Button size="sm" tag={Link} to="/visual">
                         Demo
                     </Button>
                 </div>

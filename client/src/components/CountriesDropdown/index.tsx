@@ -12,7 +12,7 @@ export interface ICountriesDropdown {
 
 const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) => {
     const { selectedCountry, countries, setSelectedCountry, thisParam } = props;
-    const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll' };
+    const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll', margin: 0 };
 
     function displayCountriesList() {
         if (countries.length === 0) {
