@@ -31,7 +31,7 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
                 method: 'GET',
                 url: `${config.server.url}/get/measurements`,
                 params: {
-                    id: 1
+                    queryParams: queryParams
                 }
             });
 

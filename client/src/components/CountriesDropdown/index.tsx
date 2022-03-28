@@ -7,11 +7,11 @@ export interface ICountriesDropdown {
     selectedCountry: string;
     countries: ICountry[];
     setSelectedCountry: React.Dispatch<React.SetStateAction<string>>;
-    thisParam: IQueryParam;
+    queryParam: IQueryParam;
 }
 
 const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) => {
-    const { selectedCountry, countries, setSelectedCountry, thisParam } = props;
+    const { selectedCountry, countries, setSelectedCountry, queryParam } = props;
     const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll', margin: 0 };
 
     function displayCountriesList() {
@@ -38,8 +38,9 @@ const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) =
 
         function selectCountry(country: ICountry) {
             setSelectedCountry(country.name);
-            thisParam.countryName = country.name;
-            thisParam.countryCode = country.code;
+            queryParam.countryId = country.id;
+            queryParam.countryName = country.name;
+            queryParam.countryCode = country.code;
         }
     }
 

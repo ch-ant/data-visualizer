@@ -35,8 +35,10 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
     function addNewQueryParam() {
         let newQueryParam: IQueryParam = {
             id: queryParams.length,
+            countryId: BigInt(-1),
             countryCode: '',
             countryName: '',
+            indicatorId: BigInt(-1),
             indicatorCode: '',
             indicatorName: ''
         };
@@ -79,7 +81,7 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
                         countries={countries}
                         indicators={indicators}
                         queryParams={queryParams}
-                        thisParam={queryParam}
+                        queryParam={queryParam}
                         setQueryParamsCounter={setQueryParamsCounter}
                     ></LineChartQueryParam>
                 </Fade>

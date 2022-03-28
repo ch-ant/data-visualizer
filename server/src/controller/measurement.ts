@@ -2,23 +2,16 @@ import { Request, Response, NextFunction } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
 import formatResponse from '../middleware/formatResponse';
+import buildQuery from '../middleware/buildQuery';
 
 const NAMESPACE = 'Measurements';
 
 const getMeasurements = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Getting measurements.');
 
-    let { id } = req.query;
-    let query = `SELECT indicators.name AS indicator, countries.name AS country, 
-        \`2010\`, \`2011\`, \`2012\`, \`2013\`, \`2014\`, \`2015\`,
-        \`2016\`, \`2017\`, \`2018\`, \`2019\`, \`2020\`
-        FROM measurements, countries, indicators
-        WHERE (countries.id = ${id}
-			AND (indicators.id = 4 OR indicators.id = 2 
-            OR indicators.id = 3 OR indicators.id = 5 OR indicators.id = 9))
-        AND countries.id = measurements.country_id
-		AND indicators.id = measurements.indicator_id
-        LIMIT 5;`;
+    const query = buildQuery(req);
+
+    logging.debug('query: ', query);
 
     Connect()
         .then((connection) => {

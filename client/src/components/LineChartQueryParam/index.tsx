@@ -12,11 +12,11 @@ export interface ILineChartQueryParam {
     countries: ICountry[];
     indicators: IIndicator[];
     queryParams: IQueryParam[];
-    thisParam: IQueryParam;
+    queryParam: IQueryParam;
 }
 
 const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (props) => {
-    let { countries, indicators, queryParams, thisParam, setQueryParamsCounter } = props;
+    let { countries, indicators, queryParams, queryParam, setQueryParamsCounter } = props;
     const [selectedCountry, setSelectedCountry] = useState<string>('Select Country');
 
     const removeButtonStyle: React.CSSProperties = {
@@ -49,7 +49,7 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
             outline
             size="sm"
             onClick={() => {
-                const index = queryParams.indexOf(thisParam);
+                const index = queryParams.indexOf(queryParam);
                 queryParams.splice(index, 1);
                 setQueryParamsCounter(queryParams.length);
             }}
@@ -61,9 +61,9 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
     return (
         <Col sm="15" className="mr-2 p-2">
             <Card body>
-                <CountriesDropdown selectedCountry={selectedCountry} countries={countries} setSelectedCountry={setSelectedCountry} thisParam={thisParam}></CountriesDropdown>
+                <CountriesDropdown selectedCountry={selectedCountry} countries={countries} setSelectedCountry={setSelectedCountry} queryParam={queryParam}></CountriesDropdown>
 
-                <IndicatorsSearchBar indicators={indicators} param={thisParam}></IndicatorsSearchBar>
+                <IndicatorsSearchBar indicators={indicators} queryParam={queryParam}></IndicatorsSearchBar>
 
                 {filterTimeSelection}
 

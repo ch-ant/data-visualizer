@@ -6,7 +6,7 @@ import { IQueryParam } from '../../pages/select';
 
 export interface ISearchProps {
     indicators: IIndicator[];
-    param: IQueryParam;
+    queryParam: IQueryParam;
 }
 
 const filterIndicators = (searchQuery: string, items: any[]) => {
@@ -17,7 +17,7 @@ const filterIndicators = (searchQuery: string, items: any[]) => {
 };
 
 const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
-    let { indicators, param } = props;
+    let { indicators, queryParam } = props;
     const [selectedIndicator, setSelectedIndicator] = useState<string>('Select Indicator');
     const [searchQuery, setSearchQuery] = useState('');
     const [inputText, setInputText] = useState<string>('');
@@ -66,8 +66,9 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
 
     function selectIndicator(indicator: IIndicator) {
         setSelectedIndicator(indicator.name);
-        param.indicatorName = indicator.name;
-        param.indicatorCode = indicator.code;
+        queryParam.indicatorId = indicator.id;
+        queryParam.indicatorName = indicator.name;
+        queryParam.indicatorCode = indicator.code;
         setInputText('');
     }
 

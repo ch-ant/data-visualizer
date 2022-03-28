@@ -16,8 +16,10 @@ import LineChartQueryParams from '../components/LineChartQueryParams';
 
 export interface IQueryParam {
     id: number;
+    countryId: bigint;
     countryCode: string;
     countryName: string;
+    indicatorId: bigint;
     indicatorCode: string;
     indicatorName: string;
 }

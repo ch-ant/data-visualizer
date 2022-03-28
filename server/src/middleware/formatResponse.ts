@@ -1,13 +1,13 @@
 import logging from '../config/logging';
 
-export interface CustomResponseItem extends Record<string, any> {
+export interface IFormattedResponse extends Record<string, any> {
     year: string;
 }
 
 const formatResponse = (results: unknown) => {
     logging.info('Formatting Response');
 
-    let customResponse: CustomResponseItem[] = [];
+    let formattedResponse: IFormattedResponse[] = [];
 
     for (let item of results as Array<Object>) {
         let values = Object.values(item);
@@ -21,21 +21,21 @@ const formatResponse = (results: unknown) => {
         let counter = 0;
 
         for (let key of Object.keys(item).filter(Number)) {
-            let obj: CustomResponseItem = {
+            let obj: IFormattedResponse = {
                 year: key
             };
 
-            if (!customResponse.some((item) => item.year === key)) {
-                customResponse.push(obj);
+            if (!formattedResponse.some((item) => item.year === key)) {
+                formattedResponse.push(obj);
             }
-            const existingObj = customResponse[counter];
+            const existingObj = formattedResponse[counter];
 
             existingObj[name] = values[counter++];
         }
     }
-    logging.debug('Custom Response: ', customResponse);
+    // logging.debug('Custom Response: ', formattedResponse);
 
-    return customResponse;
+    return formattedResponse;
 };
 
 export default formatResponse;
