@@ -6,6 +6,7 @@ import LineChartQueryParam from '../LineChartQueryParam';
 import { Link } from 'react-router-dom';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../pages/select';
+import CenterPiece from '../CenterPiece';
 
 export interface ILineChartQueryParams {
     queryParams: IQueryParam[];
@@ -75,7 +76,7 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
     function displayQueryParams() {
         return queryParams.map((queryParam, index) => {
             return (
-                <Fade key={index}>
+                <Fade key={index} style={{ width: '75%' }}>
                     <LineChartQueryParam
                         countries={countries}
                         indicators={indicators}

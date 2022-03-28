@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import ICountry from '../../model/country';
 import { IQueryParam } from '../../pages/select';
 
@@ -12,6 +12,7 @@ export interface ICountriesDropdown {
 
 const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) => {
     const { selectedCountry, countries, setSelectedCountry, thisParam } = props;
+    const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll' };
 
     function displayCountriesList() {
         if (countries.length === 0) {
@@ -26,9 +27,7 @@ const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) =
                     <Dropdown.Item
                         key={index}
                         onClick={() => {
-                            setSelectedCountry(country.name);
-                            thisParam.countryName = country.name;
-                            thisParam.countryCode = country.code;
+                            selectCountry(country);
                         }}
                     >
                         {country.name}
@@ -36,11 +35,21 @@ const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) =
                 );
             });
         }
+
+        function selectCountry(country: ICountry) {
+            setSelectedCountry(country.name);
+            thisParam.countryName = country.name;
+            thisParam.countryCode = country.code;
+        }
     }
+
     return (
-        <DropdownButton drop="end" variant="dark" title={selectedCountry}>
-            {displayCountriesList()}
-        </DropdownButton>
+        <Dropdown>
+            <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                {selectedCountry}
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={scrollable}>{displayCountriesList()}</Dropdown.Menu>
+        </Dropdown>
     );
 };
 

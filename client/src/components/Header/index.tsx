@@ -29,7 +29,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             <Container>
                 <Row className="align-items-center text-center">
                     <Col>
-                        <Fade tag="h1">
+                        <Fade>
                             <h1 className="display-4 text-white mt-5 mb-2">{title}</h1>
                             <h4 className="mb-5 text-white">{headline}</h4>
                             {children}

@@ -17,7 +17,15 @@ export interface ILineChartQueryParam {
 
 const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (props) => {
     let { countries, indicators, queryParams, thisParam, setQueryParamsCounter } = props;
-    const [selectedCountry, setSelectedCountry] = useState<string>('Country');
+    const [selectedCountry, setSelectedCountry] = useState<string>('Select Country');
+
+    const removeButtonStyle: React.CSSProperties = {
+        width: '50%',
+        position: 'relative',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%)'
+    };
 
     const filterTimeSelection = (
         // TODO
@@ -35,9 +43,12 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
 
     const removeButton = (
         <Button
-            className="mt-4"
+            style={removeButtonStyle}
+            className="mt-2"
             color="light"
             outline
+            auto
+            size="sm"
             onClick={() => {
                 const index = queryParams.indexOf(thisParam);
                 queryParams.splice(index, 1);

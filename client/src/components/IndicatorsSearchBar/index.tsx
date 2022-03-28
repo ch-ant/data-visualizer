@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button, Container, Fade, Input } from 'reactstrap';
+import { Button, Fade, Input } from 'reactstrap';
+import { Dropdown } from 'react-bootstrap';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../pages/select';
 
@@ -10,69 +11,77 @@ export interface ISearchProps {
 
 const filterIndicators = (searchQuery: string, items: any[]) => {
     if (!searchQuery) {
-        return [];
+        return items;
     }
     return items.filter((item: { name: string | any[] }) => item.name.includes(searchQuery));
 };
 
 const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
     let { indicators, param } = props;
-    const [selectedIndicator, setSelectedIndicator] = useState<string>('Search');
+    const [selectedIndicator, setSelectedIndicator] = useState<string>('Select Indicator');
     const [searchQuery, setSearchQuery] = useState('');
     const [inputText, setInputText] = useState<string>('');
-    const [searching, setSearching] = useState<boolean>(false);
-    const [selected, setSelected] = useState<boolean>(false);
+
+    const scrollable: React.CSSProperties = { maxHeight: '300px', overflowY: 'scroll' };
+    const selectedIndicatorStyle: React.CSSProperties = {
+        textOverflow: 'ellipsis',
+        display: 'inline-block',
+        overflow: 'hidden',
+        width: '50%',
+        whiteSpace: 'nowrap',
+        verticalAlign: 'middle',
+        textAlign: 'left'
+    };
 
     let filteredIndicators = filterIndicators(searchQuery, indicators);
 
     const indicatorInputFIeld = (
         <Input
-            valid={selected}
-            placeholder={selectedIndicator}
+            placeholder="Search"
             type="text"
             value={inputText}
             onChange={(e) => {
-                setSelected(false);
                 setInputText(e.target.value);
                 setTimeout(function () {
                     setSearchQuery(e.target.value);
-                }, 300);
+                }, 500);
             }}
         />
     );
 
-    const indicatorsList = <ul className="mt-1 p-2">{displayIndicatorsList()}</ul>;
-
     function displayIndicatorsList() {
-        if (selected) {
-            return <></>;
-        } else {
-            return filteredIndicators.map((indicator, index) => (
-                <Fade>
-                    <Button
-                        className="mt-2 p-2 d-flex justify-content-center"
-                        key={index}
-                        onClick={() => {
-                            setSelectedIndicator(indicator.name);
-                            param.indicatorName = indicator.name;
-                            param.indicatorCode = indicator.code;
-                            setSelected(true);
-                            setInputText('');
-                        }}
-                    >
-                        {indicator.name}
-                    </Button>
-                </Fade>
-            ));
-        }
+        return filteredIndicators.map((indicator, index) => (
+            <Fade>
+                <Dropdown.Item
+                    as={Button}
+                    key={index}
+                    onClick={() => {
+                        selectIndicator(indicator);
+                    }}
+                >
+                    {indicator.name}
+                </Dropdown.Item>
+            </Fade>
+        ));
+    }
+
+    function selectIndicator(indicator: IIndicator) {
+        setSelectedIndicator(indicator.name);
+        param.indicatorName = indicator.name;
+        param.indicatorCode = indicator.code;
+        setInputText('');
     }
 
     return (
-        <Container className="mt-4">
-            <label>Indicator</label>
-            {indicatorInputFIeld}
-            {indicatorsList}
-        </Container>
+        <Dropdown style={{ width: '170%' }} className="mt-3" autoClose={true}>
+            <Dropdown.Toggle variant="dark" id="dropdown-basic" style={selectedIndicatorStyle}>
+                {selectedIndicator}
+            </Dropdown.Toggle>
+            <Dropdown.Menu style={scrollable}>
+                <Dropdown.Header>{indicatorInputFIeld}</Dropdown.Header>
+                {displayIndicatorsList()}
+            </Dropdown.Menu>
+        </Dropdown>
     );
 };
 
