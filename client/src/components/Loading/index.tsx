@@ -1,12 +1,13 @@
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 import CenterPiece from '../CenterPiece';
+import Navigation from '../Navigation';
 
 export interface ILoadingProps {
     dotType?: string;
 }
 
-export const Loading: React.FunctionComponent<ILoadingProps> = props => {
+export const Loading: React.FunctionComponent<ILoadingProps> = (props) => {
     const { children, dotType } = props;
 
     return (
@@ -28,18 +29,21 @@ export interface ILoadingComponentProps {
     dotType?: string;
 }
 
-const LoadingComponent: React.FunctionComponent<ILoadingComponentProps> = props => {
+const LoadingComponent: React.FunctionComponent<ILoadingComponentProps> = (props) => {
     const { card, children, dotType } = props;
 
     if (card) {
         return (
-            <CenterPiece>
-                <Card className="text-center">
-                    <CardBody>
-                        <Loading dotType={dotType}>{children}</Loading>
-                    </CardBody>
-                </Card>
-            </CenterPiece>
+            <>
+                <Navigation></Navigation>
+                <CenterPiece>
+                    <Card className="text-center">
+                        <CardBody>
+                            <Loading dotType={dotType}>{children}</Loading>
+                        </CardBody>
+                    </Card>
+                </CenterPiece>
+            </>
         );
     }
 

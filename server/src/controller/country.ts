@@ -4,12 +4,10 @@ import { Connect, Query } from '../config/mysql';
 
 const NAMESPACE = 'Countries';
 
-const getAllCountries = (req: Request, res: Response, next: NextFunction) => {
+function getAllCountries(req: Request, res: Response, next: NextFunction) {
     logging.info('Getting all countries.');
 
-    let { id } = req.query;
-    let query = `SELECT * FROM countries WHERE id=${id} LIMIT 5;`;
-    logging.debug(query);
+    let query = `SELECT id, code, name FROM countries;`;
 
     Connect()
         .then((connection) => {
@@ -42,6 +40,6 @@ const getAllCountries = (req: Request, res: Response, next: NextFunction) => {
                 error
             });
         });
-};
+}
 
 export default { getAllCountries };
