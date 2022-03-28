@@ -2,3 +2,4 @@
 * text=auto
 *.sql linguist-detectable=true
 server/db/backup/* linguist-vendored
+server/build/** linguist-vendored
