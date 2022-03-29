@@ -15,6 +15,10 @@ const mainRoutes: IRoute[] = [
     {
         path: '/select',
         element: <Select />
+    },
+    {
+        path: '*',
+        element: <HomePage />
     }
 ];
 
