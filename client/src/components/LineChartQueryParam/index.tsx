@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { Button, Card, Col } from 'reactstrap';
 import ICountry from '../../model/country';
 import IIndicator from '../../model/indicator';
@@ -27,20 +26,6 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
         transform: 'translate(-50%)'
     };
 
-    const filterTimeSelection = (
-        // TODO
-        <DropdownButton variant="dark" title="TODO">
-            <Dropdown.Item
-                onClick={() => {
-                    setSelectedCountry('Action');
-                }}
-            >
-                Action
-            </Dropdown.Item>
-            <Dropdown.Item>Another action</Dropdown.Item>
-        </DropdownButton>
-    );
-
     const removeButton = (
         <Button
             style={removeButtonStyle}
@@ -64,8 +49,6 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
                 <CountriesDropdown selectedCountry={selectedCountry} countries={countries} setSelectedCountry={setSelectedCountry} queryParam={queryParam}></CountriesDropdown>
 
                 <IndicatorsSearchBar indicators={indicators} queryParam={queryParam}></IndicatorsSearchBar>
-
-                {filterTimeSelection}
 
                 <br></br>
 

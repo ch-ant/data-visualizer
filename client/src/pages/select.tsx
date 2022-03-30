@@ -14,13 +14,20 @@ import ChartSelectionButtonGroup from '../components/ChartSelectionButtonGroup';
 import Gradient from '../components/Gradient';
 import LineChartQueryParams from '../components/LineChartQueryParams';
 import { IQueryParam } from '../interfaces/queryParam';
+import { IFilterTimeParam } from '../interfaces/filterTimeParam';
 
 const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
+    let defaultFilterTimeParam: IFilterTimeParam = {
+        from: 1960,
+        to: 2020
+    };
+
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [indicators, setIndicators] = useState<IIndicator[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [queryParams, setQueryParams] = useState<IQueryParam[]>([]);
     const [queryParamsCounter, setQueryParamsCounter] = useState<number>(0);
+    const [filterTimeParam, setFilterTimeParam] = useState<IFilterTimeParam>(defaultFilterTimeParam);
     const [lineChartSelected, setLineChartSelected] = useState<boolean>(false);
     const [barChartSelected, setBarChartSelected] = useState<boolean>(false);
     const [scatterPlotSelected, setScatterPlotSelected] = useState<boolean>(false);

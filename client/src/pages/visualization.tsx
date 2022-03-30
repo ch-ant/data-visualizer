@@ -24,14 +24,17 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
         logging.info(`This is just a test api call to: ${config.server.url}/get/measurements`);
 
         const queryParams = JSON.parse(sessionStorage.queryParams);
-        logging.debug('visualization received: ', queryParams);
+        const filterTimeParam = JSON.parse(sessionStorage.filterTimeParam);
+
+        logging.debug('visualization received:', { queryParams, filterTimeParam });
 
         try {
             const response = await axios({
                 method: 'GET',
                 url: `${config.server.url}/get/measurements`,
                 params: {
-                    queryParams: queryParams
+                    queryParams: queryParams,
+                    filterTimeParam: filterTimeParam
                 }
             });
 

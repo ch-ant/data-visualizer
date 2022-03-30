@@ -1,25 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Collapse } from 'react-bootstrap';
 import { Button, ButtonGroup, Input, Row } from 'reactstrap';
+import { IFilterTimeParam } from '../../interfaces/filterTimeParam';
 
 export interface ITimeQueryParams {}
 
 const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
+    const MIN_YEAR = 1960;
+    const MAX_YEAR = 2020;
+
     const [filterTimeSelected, setFilterTimeSelected] = useState(false);
     const [aggregateTimeSelected, setAggregateTimeSelected] = useState(false);
-    const [from, setFrom] = useState<string>('1960');
-    const [to, setTo] = useState<string>('2020');
+    const [from, setFrom] = useState<number>(MIN_YEAR);
+    const [to, setTo] = useState<number>(MAX_YEAR);
+
+    useEffect(() => {
+        saveFilterTimeParamToSessionStorage(from, to);
+    }, []);
+
+    function saveFilterTimeParamToSessionStorage(from: number, to: number) {
+        const [validFrom, validTo] = validateRange(from, to);
+        let filterTimeParam: IFilterTimeParam = {
+            from: validFrom,
+            to: validTo
+        };
+        sessionStorage.filterTimeParam = JSON.stringify(filterTimeParam);
+    }
+
+    function validateRange(from: number, to: number): [number, number] {
+        if (from <= to && from >= MIN_YEAR && to <= MAX_YEAR) {
+            return [from, to];
+        }
+        return [MIN_YEAR, MAX_YEAR];
+    }
 
     const fromInput = (
         <>
-            From:
+            <label>From:</label>
             <Input
                 type="number"
                 placeholder="1960"
+                min={1960}
+                max={to}
                 style={{ margin: '5px' }}
                 value={from}
                 onChange={(e) => {
-                    setFrom(e.target.value);
+                    setFrom(parseInt(e.target.value));
                 }}
             ></Input>
         </>
@@ -27,27 +53,47 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
 
     const toInput = (
         <>
-            To:
+            <label className="mt-3">To:</label>
             <Input
                 type="number"
                 placeholder="2020"
+                min={from}
+                max={2020}
                 style={{ margin: '5px' }}
                 value={to}
                 onChange={(e) => {
-                    setTo(e.target.value);
+                    setTo(parseInt(e.target.value));
                 }}
             ></Input>
         </>
     );
 
     const confirmButton = (
-        <Button className="ml-4  mr-4 mt-4 d-flex justify-content-center" onClick={() => setFilterTimeSelected(!filterTimeSelected)} size="sm" outline color="light">
+        <Button
+            className="ml-4  mr-4 mt-4 d-flex justify-content-center"
+            size="sm"
+            outline
+            color="light"
+            onClick={() => {
+                setFilterTimeSelected(!filterTimeSelected);
+                saveFilterTimeParamToSessionStorage(from, to);
+            }}
+        >
             Confirm
         </Button>
     );
 
     const cancelButton = (
-        <Button className="ml-4  mr-4 mt-4 d-flex justify-content-center" onClick={() => setFilterTimeSelected(!filterTimeSelected)} size="sm" outline color="light">
+        <Button
+            className="ml-4  mr-4 mt-4 d-flex justify-content-center"
+            size="sm"
+            outline
+            color="light"
+            onClick={() => {
+                setFilterTimeSelected(!filterTimeSelected);
+                saveFilterTimeParamToSessionStorage(MIN_YEAR, MAX_YEAR);
+            }}
+        >
             Cancel
         </Button>
     );
