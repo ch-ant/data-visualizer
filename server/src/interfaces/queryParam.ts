@@ -1,4 +1,4 @@
 export default interface IQueryParam {
-    countryId: any;
-    indicatorId: any;
+    countryId: bigint;
+    indicatorId: bigint;
 }

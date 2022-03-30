@@ -10,7 +10,6 @@ const getMeasurements = (req: Request, res: Response, next: NextFunction) => {
     logging.info('Getting measurements.');
 
     const query = buildQuery(req);
-
     logging.debug('query: ', query);
 
     Connect()
