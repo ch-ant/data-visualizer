@@ -34,20 +34,23 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
     };
 
     let filteredIndicators = filterIndicators(searchQuery, indicators);
-
     const indicatorInputFIeld = (
         <Input
             placeholder="Search"
             type="text"
             value={inputText}
             onChange={(e) => {
-                setInputText(e.target.value);
-                setTimeout(function () {
-                    setSearchQuery(e.target.value);
-                }, 500);
+                updateIndicatorInputField(e);
             }}
         />
     );
+
+    function updateIndicatorInputField(e: React.ChangeEvent<HTMLInputElement>) {
+        setInputText(e.target.value);
+        setTimeout(function () {
+            setSearchQuery(e.target.value);
+        }, 500);
+    }
 
     function displayIndicatorsList() {
         return filteredIndicators.map((indicator, index) => (

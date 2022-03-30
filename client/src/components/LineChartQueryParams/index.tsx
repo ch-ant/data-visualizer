@@ -6,6 +6,7 @@ import LineChartQueryParam from '../LineChartQueryParam';
 import { Link } from 'react-router-dom';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../interfaces/queryParam';
+import TimeQueryParams from '../TimeQueryParams';
 
 export interface ILineChartQueryParams {
     queryParams: IQueryParam[];
@@ -92,7 +93,10 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
 
                     <div style={addCountryIndicatorButtonStyle}> {addCountryIndicatorButton} </div>
                 </Row>
+                <Row></Row>
             </Container>
+            <TimeQueryParams></TimeQueryParams>
+
             {visualizeButton}
         </Fade>
     );
