@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Fade, Input } from 'reactstrap';
 import { Dropdown } from 'react-bootstrap';
 import IIndicator from '../../model/indicator';
-import { IQueryParam } from '../../pages/select';
+import { IQueryParam } from '../../interfaces/queryParam';
 
 export interface ISearchProps {
     indicators: IIndicator[];
@@ -67,8 +67,6 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
     function selectIndicator(indicator: IIndicator) {
         setSelectedIndicator(indicator.name);
         queryParam.indicatorId = indicator.id;
-        queryParam.indicatorName = indicator.name;
-        queryParam.indicatorCode = indicator.code;
         setInputText('');
     }
 

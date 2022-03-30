@@ -5,7 +5,7 @@ import ICountry from '../../model/country';
 import LineChartQueryParam from '../LineChartQueryParam';
 import { Link } from 'react-router-dom';
 import IIndicator from '../../model/indicator';
-import { IQueryParam } from '../../pages/select';
+import { IQueryParam } from '../../interfaces/queryParam';
 
 export interface ILineChartQueryParams {
     queryParams: IQueryParam[];
@@ -34,13 +34,8 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
 
     function addNewQueryParam() {
         let newQueryParam: IQueryParam = {
-            id: queryParams.length,
             countryId: BigInt(-1),
-            countryCode: '',
-            countryName: '',
-            indicatorId: BigInt(-1),
-            indicatorCode: '',
-            indicatorName: ''
+            indicatorId: BigInt(-1)
         };
         queryParams.push(newQueryParam);
         setQueryParamsCounter(queryParams.length);

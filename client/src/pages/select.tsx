@@ -13,16 +13,7 @@ import IIndicator from '../model/indicator';
 import ChartSelectionButtonGroup from '../components/ChartSelectionButtonGroup';
 import Gradient from '../components/Gradient';
 import LineChartQueryParams from '../components/LineChartQueryParams';
-
-export interface IQueryParam {
-    id: number;
-    countryId: bigint;
-    countryCode: string;
-    countryName: string;
-    indicatorId: bigint;
-    indicatorCode: string;
-    indicatorName: string;
-}
+import { IQueryParam } from '../interfaces/queryParam';
 
 const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
     const [countries, setCountries] = useState<ICountry[]>([]);

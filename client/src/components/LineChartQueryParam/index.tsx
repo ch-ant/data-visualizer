@@ -3,7 +3,7 @@ import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { Button, Card, Col } from 'reactstrap';
 import ICountry from '../../model/country';
 import IIndicator from '../../model/indicator';
-import { IQueryParam } from '../../pages/select';
+import { IQueryParam } from '../../interfaces/queryParam';
 import CountriesDropdown from '../CountriesDropdown';
 import IndicatorsSearchBar from '../IndicatorsSearchBar';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import ICountry from '../../model/country';
-import { IQueryParam } from '../../pages/select';
+import { IQueryParam } from '../../interfaces/queryParam';
 
 export interface ICountriesDropdown {
     selectedCountry: string;
@@ -39,8 +39,6 @@ const CountriesDropdown: React.FunctionComponent<ICountriesDropdown> = (props) =
         function selectCountry(country: ICountry) {
             setSelectedCountry(country.name);
             queryParam.countryId = country.id;
-            queryParam.countryName = country.name;
-            queryParam.countryCode = country.code;
         }
     }
 

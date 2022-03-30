@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { ButtonGroup } from 'react-bootstrap';
-import { IQueryParam } from '../../pages/select';
+import { IQueryParam } from '../../interfaces/queryParam';
 
 export interface IChartsSelection {
     firstOption: React.Dispatch<React.SetStateAction<boolean>>;
