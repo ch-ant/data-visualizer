@@ -5,6 +5,8 @@ import aggregateTime from './aggregateTime';
 import filterTime from './filterTime';
 
 const buildQuery = (req: Request) => {
+    logging.info('Building query.');
+
     let { queryParams, filterTimeParam, aggregateTimeParam } = req.query;
     const parsedQueryParams = parseQueryParams();
     const years = buildYearsString();

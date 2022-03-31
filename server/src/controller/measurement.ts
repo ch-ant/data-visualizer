@@ -7,10 +7,8 @@ import buildQuery from '../middleware/buildQuery';
 const NAMESPACE = 'Measurements';
 
 const getMeasurements = (req: Request, res: Response, next: NextFunction) => {
-    logging.info('Getting measurements.');
-
     const query = buildQuery(req);
-    logging.debug('query: ', query);
+    logging.info('Getting measurements with query: ', query);
 
     Connect()
         .then((connection) => {

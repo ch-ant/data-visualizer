@@ -5,9 +5,8 @@ import { Connect, Query } from '../config/mysql';
 const NAMESPACE = 'Countries';
 
 function getAllCountries(req: Request, res: Response, next: NextFunction) {
-    logging.info('Getting all countries.');
-
-    let query = `SELECT id, code, name FROM countries;`;
+    const query = `SELECT id, code, name FROM countries;`;
+    logging.info('Getting all countries with query: ', query);
 
     Connect()
         .then((connection) => {

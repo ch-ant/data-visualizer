@@ -5,7 +5,7 @@ export interface IFormattedResponse extends Record<string, any> {
 }
 
 const formatResponse = (results: unknown) => {
-    logging.info('Formatting Response');
+    logging.info('Formatting Response.');
 
     let formattedResponse: IFormattedResponse[] = [];
 
@@ -33,7 +33,6 @@ const formatResponse = (results: unknown) => {
             existingObj[name] = values[counter++];
         }
     }
-    // logging.debug('Custom Response: ', formattedResponse);
 
     return formattedResponse;
 };

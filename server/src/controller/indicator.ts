@@ -5,9 +5,8 @@ import { Connect, Query } from '../config/mysql';
 const NAMESPACE = 'Indicators';
 
 const getAllIndicators = (req: Request, res: Response, next: NextFunction) => {
-    logging.info('Getting all indicators.');
-
-    let query = `SELECT id, code, name FROM indicators;`;
+    const query = `SELECT id, code, name FROM indicators;`;
+    logging.info('Getting all indicators with query: ', query);
 
     Connect()
         .then((connection) => {

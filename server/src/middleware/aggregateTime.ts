@@ -3,7 +3,7 @@ import logging from '../config/logging';
 const VALID_AGGREGATE_TIME_PARAM_VALUES = ['5', '10'];
 
 const aggregateTime = (aggregateTimeParam: string, years: string) => {
-    logging.info('Aggregating time');
+    logging.info('Aggregating time.');
 
     function buildAggregateYearsString() {
         const yearsArray = years.split(',');
@@ -27,8 +27,8 @@ const aggregateTime = (aggregateTimeParam: string, years: string) => {
             const year = yearsArray[index];
 
             if (isLastInYearsArray(index)) {
-                if (isFirstInMeanSubarray()) str += `(`;
-                str += ` +${year} ) /${counter} AS ${year}\n`;
+                isFirstInMeanSubarray() ? (str += `(`) : (str += ` +`);
+                str += `${year} ) /${counter} AS ${year}\n`;
             } else if (isFirstInMeanSubarray()) {
                 str += `( ${year}`;
                 counter++;
