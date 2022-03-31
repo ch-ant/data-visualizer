@@ -11,7 +11,7 @@ const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
     const { children, data, keys } = props;
 
     return (
-        <div style={{ width: 800, height: 475 }}>
+        <div style={{ width: 1000, height: 500 }}>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
@@ -25,11 +25,17 @@ const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey={keys[0]} />
                     <YAxis />
-                    <Tooltip position={{ x: 200, y: -200 }} />
+                    <Tooltip
+                        itemStyle={{ background: `rgba(38, 38, 38, 1.0)` }}
+                        wrapperStyle={{ background: `rgba(38, 38, 38, 1.0)` }}
+                        contentStyle={{ background: `rgba(38, 38, 38, 1.0)` }}
+                        label={{ background: `rgba(38, 38, 38, 1.0)` }}
+                        position={{ x: 100, y: 500 }}
+                    />
                     <Legend />
                     {keys.map((key, index) => {
                         if (index > 0) {
-                            return <Line key={index} type="monotone" dataKey={keys[index]} stroke={colors[index]} activeDot={{ r: 5 }} />;
+                            return <Line key={index} type="monotone" dataKey={keys[index]} stroke={colors[index]} activeDot={{ r: 4 }} />;
                         }
                     })}
                 </LineChart>

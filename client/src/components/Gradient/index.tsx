@@ -3,10 +3,11 @@ import React from 'react';
 export interface IGradientRGBA {
     rgba1: string;
     rgba2: string;
+    height: string;
 }
 
 const Gradient: React.FunctionComponent<IGradientRGBA> = (props) => {
-    const { rgba1, rgba2, children } = props;
+    const { rgba1, rgba2, children, height } = props;
 
     return (
         <div
@@ -15,7 +16,7 @@ const Gradient: React.FunctionComponent<IGradientRGBA> = (props) => {
                 position: 'absolute',
                 objectFit: 'fill',
                 width: '100%',
-                height: '700px'
+                height: height
             }}
         >
             {children}

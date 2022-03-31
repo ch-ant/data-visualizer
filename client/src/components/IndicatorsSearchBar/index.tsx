@@ -49,7 +49,7 @@ const SearchBar: React.FunctionComponent<ISearchProps> = (props) => {
         setInputText(e.target.value);
         setTimeout(function () {
             setSearchQuery(e.target.value);
-        }, 500);
+        }, 200);
     }
 
     function displayIndicatorsList() {

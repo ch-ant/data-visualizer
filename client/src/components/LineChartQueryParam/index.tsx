@@ -30,7 +30,7 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
         <Button
             style={removeButtonStyle}
             className="mt-2"
-            color="light"
+            color="danger"
             outline
             size="sm"
             onClick={() => {

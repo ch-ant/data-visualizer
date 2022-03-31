@@ -115,7 +115,7 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
             <Navigation />
             <Background url={''}></Background>
             <Header headline="And they will come to life" title="Select Data"></Header>
-            <Gradient rgba1={'rgba(33, 33, 33, 1.0)'} rgba2={'rgba(24, 24, 40, 0.8)'}>
+            <Gradient rgba1={'rgba(33, 33, 33, 1.0)'} rgba2={'rgba(24, 24, 40, 0.8)'} height={'700px'}>
                 <ChartSelectionButtonGroup
                     firstOption={setLineChartSelected}
                     secondOption={setBarChartSelected}

@@ -39,7 +39,7 @@ const HomePage: React.FunctionComponent<IPageProps> = () => (
         <Navigation />
         <Background url={''}></Background>
         <Header headline="Insightful data at a glance" title="Data Visualizer"></Header>
-        <Gradient rgba1={'rgba(33, 33, 33, 0.3)'} rgba2={'rgba(24, 24, 40, 0.5)'}>
+        <Gradient rgba1={'rgba(33, 33, 33, 0.3)'} rgba2={'rgba(24, 24, 40, 0.5)'} height={'700px'}>
             {homePageContents}
         </Gradient>
     </Container>

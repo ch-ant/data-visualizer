@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Card, CardBody, Container } from 'reactstrap';
-import CenterPiece from '../components/CenterPiece';
+import { Link } from 'react-router-dom';
+import { Button, Card, Container, Fade } from 'reactstrap';
+import Background from '../components/Background';
+import Gradient from '../components/Gradient';
 import LineChartComponent from '../components/LineChart';
 import LoadingComponent from '../components/Loading';
 import Navigation from '../components/Navigation';
@@ -25,8 +27,9 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
 
         const queryParams = JSON.parse(sessionStorage.queryParams);
         const filterTimeParam = JSON.parse(sessionStorage.filterTimeParam);
+        const aggregateTimeParam = sessionStorage.aggregateTimeParam;
 
-        logging.debug('visualization received:', { queryParams, filterTimeParam });
+        logging.debug('visualization received:', { queryParams, filterTimeParam, aggregateTimeParam });
 
         try {
             const response = await axios({
@@ -58,20 +61,38 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
         }
     };
 
+    const visualizeAgainButton = (
+        <div className="mt-5 d-flex justify-content-center">
+            <Button className="mt-5" color="light" outline tag={Link} to="/select" onClick={() => {}}>
+                Visualize Again
+            </Button>
+        </div>
+    );
+
+    const chart = (
+        // TODO support multiple chart types
+        <div className="mt-5 d-flex justify-content-center ">
+            <Card className="text-center p-5 mt-5">
+                <LineChartComponent data={measurements} keys={keys} />
+            </Card>
+        </div>
+    );
+
     if (loading) {
         return <LoadingComponent>Loading chart...</LoadingComponent>;
     }
 
     return (
         <Container fluid className="p-0">
-            <Navigation />
-            <CenterPiece>
-                <Card className="text-center p-5">
-                    <CardBody>
-                        <LineChartComponent data={measurements} keys={keys} />
-                    </CardBody>
-                </Card>
-            </CenterPiece>
+            <Gradient rgba1={'rgba(33, 33, 33, 1.0)'} rgba2={'rgba(24, 24, 40, 0.8)'} height={'100%'}>
+                <Navigation />
+
+                <Background url={''}></Background>
+                <Fade>
+                    {chart}
+                    {visualizeAgainButton}
+                </Fade>
+            </Gradient>
         </Container>
     );
 };
