@@ -1,12 +1,13 @@
 import { Request } from 'express';
 import logging from '../config/logging';
 import IQueryParam from '../interfaces/queryParam';
+import aggregateTime from './aggregateTime';
 import filterTime from './filterTime';
 
 const buildQuery = (req: Request) => {
-    let { queryParams, filterTimeParam } = req.query;
+    let { queryParams, filterTimeParam, aggregateTimeParam } = req.query;
     const parsedQueryParams = parseQueryParams();
-    const years = filterTime(filterTimeParam);
+    const years = buildYearsString();
 
     function parseQueryParams() {
         const parsedQueryParams: IQueryParam[] = [];
@@ -22,7 +23,17 @@ const buildQuery = (req: Request) => {
         return parsedQueryParams;
     }
 
-    logging.debug('parsedQueryParams: ', parsedQueryParams);
+    function buildYearsString() {
+        const years = filterTime(filterTimeParam);
+
+        if (aggregateTimeParam === '0') {
+            return years;
+        } else {
+            if (typeof aggregateTimeParam === 'string') {
+                return aggregateTime(aggregateTimeParam, years);
+            }
+        }
+    }
 
     function formatQueryParams(): string {
         let paramsString = '';

@@ -37,7 +37,8 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
                 url: `${config.server.url}/get/measurements`,
                 params: {
                     queryParams: queryParams,
-                    filterTimeParam: filterTimeParam
+                    filterTimeParam: filterTimeParam,
+                    aggregateTimeParam: aggregateTimeParam
                 }
             });
 

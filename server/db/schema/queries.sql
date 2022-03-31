@@ -49,7 +49,17 @@ AND indicators.id = measurements.indicator_id
 -- GROUP BY measurements.`2020` DIV 5
 LIMIT 1000000;
 
+ SELECT indicators.name AS indicator, countries.name AS country,
+        `2001`,`2002`,`1960`,`1961`,
+        (`2001`+`2002`)/2 AS `2002`, (`1960`+`2002`+`2001`)/3
+        FROM measurements, countries, indicators
+        WHERE (
+            (country_id = 23 AND indicator_id = 320)
 
+        )
+        AND country_id = countries.id
+        AND indicator_id = indicators.id;
+        
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE measurements;
 TRUNCATE countries;

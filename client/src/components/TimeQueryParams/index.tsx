@@ -165,7 +165,6 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
             color="light"
             onClick={() => {
                 setAggregateTimeSelected(!aggregateTimeSelected);
-                saveFilterTimeParamToSessionStorage(MIN_YEAR, MAX_YEAR);
             }}
         >
             Done
