@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Collapse } from 'react-bootstrap';
-import { Button, ButtonGroup, Input, Row } from 'reactstrap';
+import { Card, Collapse, Form } from 'react-bootstrap';
+import { Button, ButtonGroup, CardBody, Input, Row } from 'reactstrap';
+import logging from '../../config/logging';
 import { IFilterTimeParam } from '../../interfaces/filterTimeParam';
 
 export interface ITimeQueryParams {}
 
-const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
-    const MIN_YEAR = 1960;
-    const MAX_YEAR = 2020;
+const MIN_YEAR = 1960;
+const MAX_YEAR = 2020;
+const NO_AGGREGATION = 0;
+const MEAN_5_YEAR_PERIOD = 5;
+const MEAN_10_YEAR_PERIOD = 10;
 
+const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
     const [filterTimeSelected, setFilterTimeSelected] = useState(false);
     const [aggregateTimeSelected, setAggregateTimeSelected] = useState(false);
     const [from, setFrom] = useState<number>(MIN_YEAR);
@@ -16,6 +20,7 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
 
     useEffect(() => {
         saveFilterTimeParamToSessionStorage(from, to);
+        saveAggregateTimeParamToSessionStorage(NO_AGGREGATION);
     }, []);
 
     function saveFilterTimeParamToSessionStorage(from: number, to: number) {
@@ -32,6 +37,11 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
             return [from, to];
         }
         return [MIN_YEAR, MAX_YEAR];
+    }
+
+    function saveAggregateTimeParamToSessionStorage(value: number) {
+        sessionStorage.aggregateTimeParam = value;
+        logging.debug('aggregateTimeParam: ', sessionStorage.aggregateTimeParam);
     }
 
     const fromInput = (
@@ -68,7 +78,7 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
         </>
     );
 
-    const confirmButton = (
+    const confirmFilterTimeButton = (
         <Button
             className="ml-4  mr-4 mt-4 d-flex justify-content-center"
             size="sm"
@@ -83,12 +93,12 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
         </Button>
     );
 
-    const cancelButton = (
+    const cancelFilterTimeButton = (
         <Button
             className="ml-4  mr-4 mt-4 d-flex justify-content-center"
             size="sm"
             outline
-            color="light"
+            color="danger"
             onClick={() => {
                 setFilterTimeSelected(!filterTimeSelected);
                 saveFilterTimeParamToSessionStorage(MIN_YEAR, MAX_YEAR);
@@ -104,8 +114,8 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
                 {fromInput}
                 {toInput}
                 <Row>
-                    {confirmButton}
-                    {cancelButton}
+                    {confirmFilterTimeButton}
+                    {cancelFilterTimeButton}
                 </Row>
             </Card>
         </Collapse>
@@ -132,15 +142,54 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
         </div>
     );
 
+    function addAggregateOptionRadioButton(label: string, param: number) {
+        return (
+            <Form.Check
+                className="mb-2"
+                type="radio"
+                id={`default-radio`}
+                label={label}
+                name="aggregate"
+                onClick={() => {
+                    saveAggregateTimeParamToSessionStorage(param);
+                }}
+            />
+        );
+    }
+
+    const doneAggregateTimeButton = (
+        <Button
+            className="m-3 d-flex justify-content-center"
+            size="sm"
+            outline
+            color="light"
+            onClick={() => {
+                setAggregateTimeSelected(!aggregateTimeSelected);
+                saveFilterTimeParamToSessionStorage(MIN_YEAR, MAX_YEAR);
+            }}
+        >
+            Done
+        </Button>
+    );
+
     const aggregateTimeParams = (
         <Collapse in={aggregateTimeSelected}>
-            <Card>TODO: Aggregate Time Selected</Card>
+            <Card>
+                <CardBody>
+                    <Form className="p-2">
+                        {addAggregateOptionRadioButton(`No aggregation`, NO_AGGREGATION)}
+                        {addAggregateOptionRadioButton(`Mean for 5-year periods`, MEAN_5_YEAR_PERIOD)}
+                        {addAggregateOptionRadioButton(`Mean for 10-year periods`, MEAN_10_YEAR_PERIOD)}
+                    </Form>
+                </CardBody>
+                {doneAggregateTimeButton}
+            </Card>
         </Collapse>
     );
 
     return (
         <div style={{ margin: '45px' }} className="d-flex justify-content-center">
-            <Collapse in={!filterTimeSelected}>{filterOrAggregateSelectionButtonGroup}</Collapse>
+            <Collapse in={!filterTimeSelected && !aggregateTimeSelected}>{filterOrAggregateSelectionButtonGroup}</Collapse>
             {filterTimeParams}
             {aggregateTimeParams}
         </div>
