@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Card, Col } from 'reactstrap';
 import ICountry from '../../model/country';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../interfaces/queryParam';
 import CountriesDropdown from '../CountriesDropdown';
-import IndicatorsSearchBar from '../IndicatorsSearchBar';
+import IndicatorsDropdown from '../IndicatorsDropdown';
 
-export interface ILineChartQueryParam {
-    setQueryParamsCounter: React.Dispatch<React.SetStateAction<number>>;
+export interface IQueryParamProps {
+    setQueryParams: React.Dispatch<React.SetStateAction<IQueryParam[]>>;
     countries: ICountry[];
     indicators: IIndicator[];
     queryParams: IQueryParam[];
-    queryParam: IQueryParam;
+    index: number;
 }
 
-const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (props) => {
-    let { countries, indicators, queryParams, queryParam, setQueryParamsCounter } = props;
-    const [selectedCountry, setSelectedCountry] = useState<string>('Select Country');
+const LineChartQueryParam: React.FunctionComponent<IQueryParamProps> = (props) => {
+    let { countries, indicators, queryParams, setQueryParams, index } = props;
 
     const removeButtonStyle: React.CSSProperties = {
         width: '50%',
@@ -34,21 +33,25 @@ const LineChartQueryParam: React.FunctionComponent<ILineChartQueryParam> = (prop
             outline
             size="sm"
             onClick={() => {
-                const index = queryParams.indexOf(queryParam);
-                queryParams.splice(index, 1);
-                setQueryParamsCounter(queryParams.length);
+                removeQueryParam(index);
             }}
         >
             Remove
         </Button>
     );
 
+    const removeQueryParam = (index: number) => {
+        let newQueryParams = [...queryParams];
+        newQueryParams.splice(index, 1);
+        setQueryParams(newQueryParams);
+    };
+
     return (
         <Col sm="15" className="mr-2 p-2">
             <Card body>
-                <CountriesDropdown selectedCountry={selectedCountry} countries={countries} setSelectedCountry={setSelectedCountry} queryParam={queryParam}></CountriesDropdown>
+                <CountriesDropdown countries={countries} queryParams={queryParams} setQueryParams={setQueryParams} paramIndex={index}></CountriesDropdown>
 
-                <IndicatorsSearchBar indicators={indicators} queryParam={queryParam}></IndicatorsSearchBar>
+                <IndicatorsDropdown indicators={indicators} queryParams={queryParams} setQueryParams={setQueryParams} paramIndex={index}></IndicatorsDropdown>
 
                 <br></br>
 

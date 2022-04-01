@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Fade, Row } from 'reactstrap';
 import logging from '../../config/logging';
 import ICountry from '../../model/country';
-import LineChartQueryParam from '../LineChartQueryParam';
+import QueryParam from '../QueryParam';
 import { Link } from 'react-router-dom';
 import IIndicator from '../../model/indicator';
 import { IQueryParam } from '../../interfaces/queryParam';
 import TimeQueryParams from '../TimeQueryParams';
 
-export interface ILineChartQueryParams {
-    queryParams: IQueryParam[];
+export interface IQueryParamsProps {
     countries: ICountry[];
     indicators: IIndicator[];
-    setQueryParamsCounter: React.Dispatch<React.SetStateAction<number>>;
+    selectedChart: string;
 }
 
-const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (props) => {
-    const { queryParams, countries, indicators, setQueryParamsCounter } = props;
+const QueryParams: React.FunctionComponent<IQueryParamsProps> = (props) => {
+    const { countries, indicators, selectedChart } = props;
+    const [queryParams, setQueryParams] = useState<IQueryParam[]>([]);
 
     const addCountryIndicatorButton = (
         <Button
@@ -26,20 +26,15 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
                 marginTop: '40px'
             }}
             onClick={() => {
-                addNewQueryParam();
+                addQueryParam();
             }}
         >
             Add Country / Indicator
         </Button>
     );
 
-    function addNewQueryParam() {
-        let newQueryParam: IQueryParam = {
-            countryId: BigInt(-1),
-            indicatorId: BigInt(-1)
-        };
-        queryParams.push(newQueryParam);
-        setQueryParamsCounter(queryParams.length);
+    function addQueryParam() {
+        setQueryParams([...queryParams, { countryId: BigInt(0), indicatorId: BigInt(0) }]);
 
         logging.debug('Query params: ', queryParams);
     }
@@ -69,17 +64,16 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
         </div>
     );
 
+    function displayAddCountryIndicatorButton() {
+        if (selectedChart === 'Scatter Plot' && queryParams.length === 2) return null;
+        return <div style={addCountryIndicatorButtonStyle}> {addCountryIndicatorButton} </div>;
+    }
+
     function displayQueryParams() {
-        return queryParams.map((queryParam, index) => {
+        return queryParams.map((param, index) => {
             return (
-                <Fade key={index} style={{ width: '75%' }}>
-                    <LineChartQueryParam
-                        countries={countries}
-                        indicators={indicators}
-                        queryParams={queryParams}
-                        queryParam={queryParam}
-                        setQueryParamsCounter={setQueryParamsCounter}
-                    ></LineChartQueryParam>
+                <Fade key={index} style={{ width: '50%' }}>
+                    <QueryParam key={index} countries={countries} indicators={indicators} queryParams={queryParams} setQueryParams={setQueryParams} index={index}></QueryParam>
                 </Fade>
             );
         });
@@ -87,13 +81,12 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
 
     return (
         <Fade>
-            <Container className="mt-5">
+            <Container className="mt-5 ">
                 <Row className="d-flex justify-content-center">
                     {displayQueryParams()}
 
-                    <div style={addCountryIndicatorButtonStyle}> {addCountryIndicatorButton} </div>
+                    {displayAddCountryIndicatorButton()}
                 </Row>
-                <Row></Row>
             </Container>
             <TimeQueryParams></TimeQueryParams>
 
@@ -102,4 +95,4 @@ const LineChartQueryParams: React.FunctionComponent<ILineChartQueryParams> = (pr
     );
 };
 
-export default LineChartQueryParams;
+export default QueryParams;

@@ -10,27 +10,17 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Background from '../components/Background';
 import IIndicator from '../model/indicator';
-import ChartSelectionButtonGroup from '../components/ChartSelectionButtonGroup';
+import ChartSelection from '../components/ChartSelection';
 import Gradient from '../components/Gradient';
-import LineChartQueryParams from '../components/LineChartQueryParams';
-import { IQueryParam } from '../interfaces/queryParam';
-import { IFilterTimeParam } from '../interfaces/filterTimeParam';
+import QueryParams from '../components/QueryParams';
+
+const SUPPORTED_CHARTS = ['Line Chart', 'Bar Chart', 'Scatter Plot'];
 
 const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
-    let defaultFilterTimeParam: IFilterTimeParam = {
-        from: 1960,
-        to: 2020
-    };
-
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [indicators, setIndicators] = useState<IIndicator[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [queryParams, setQueryParams] = useState<IQueryParam[]>([]);
-    const [queryParamsCounter, setQueryParamsCounter] = useState<number>(0);
-    const [filterTimeParam, setFilterTimeParam] = useState<IFilterTimeParam>(defaultFilterTimeParam);
-    const [lineChartSelected, setLineChartSelected] = useState<boolean>(false);
-    const [barChartSelected, setBarChartSelected] = useState<boolean>(false);
-    const [scatterPlotSelected, setScatterPlotSelected] = useState<boolean>(false);
+    const [selectedChart, setSelectedChart] = useState<string>('');
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
@@ -94,13 +84,9 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
         }
     };
 
-    function displayQueryParamsForSelectedChart() {
-        if (lineChartSelected) {
-            return <LineChartQueryParams queryParams={queryParams} countries={countries} indicators={indicators} setQueryParamsCounter={setQueryParamsCounter}></LineChartQueryParams>;
-        } else if (barChartSelected) {
-            return <p> TODO: Bar chart selected </p>;
-        } else if (scatterPlotSelected) {
-            return <p> TODO: Scatter plot selected </p>;
+    function displayQueryParams() {
+        if (SUPPORTED_CHARTS.includes(selectedChart)) {
+            return <QueryParams key={SUPPORTED_CHARTS.indexOf(selectedChart)} countries={countries} indicators={indicators} selectedChart={selectedChart}></QueryParams>;
         } else {
             return <></>;
         }
@@ -116,14 +102,9 @@ const SelectPage: React.FunctionComponent<IPageProps> = (props) => {
             <Background url={''}></Background>
             <Header headline="And they will come to life" title="Select Data"></Header>
             <Gradient rgba1={'rgba(33, 33, 33, 1.0)'} rgba2={'rgba(24, 24, 40, 0.8)'} height={'700px'}>
-                <ChartSelectionButtonGroup
-                    firstOption={setLineChartSelected}
-                    secondOption={setBarChartSelected}
-                    thirdOption={setScatterPlotSelected}
-                    setQueryParams={setQueryParams}
-                ></ChartSelectionButtonGroup>
+                <ChartSelection setSelectedChart={setSelectedChart}></ChartSelection>
 
-                {displayQueryParamsForSelectedChart()}
+                {displayQueryParams()}
             </Gradient>
         </Container>
     );

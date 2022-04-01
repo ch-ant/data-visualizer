@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Collapse, Form } from 'react-bootstrap';
 import { Button, ButtonGroup, CardBody, Input, Row } from 'reactstrap';
-import logging from '../../config/logging';
 import { IFilterTimeParam } from '../../interfaces/filterTimeParam';
 
 export interface ITimeQueryParams {}
@@ -41,7 +40,6 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
 
     function saveAggregateTimeParamToSessionStorage(value: number) {
         sessionStorage.aggregateTimeParam = value;
-        logging.debug('aggregateTimeParam: ', sessionStorage.aggregateTimeParam);
     }
 
     const fromInput = (
@@ -50,7 +48,7 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
             <Input
                 type="number"
                 placeholder="1960"
-                min={1960}
+                min={MIN_YEAR}
                 max={to}
                 style={{ margin: '5px' }}
                 value={from}
@@ -68,7 +66,7 @@ const TimeQueryParams: React.FunctionComponent<ITimeQueryParams> = (props) => {
                 type="number"
                 placeholder="2020"
                 min={from}
-                max={2020}
+                max={MAX_YEAR}
                 style={{ margin: '5px' }}
                 value={to}
                 onChange={(e) => {
