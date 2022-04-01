@@ -57,6 +57,7 @@ const QueryParams: React.FunctionComponent<IQueryParamsProps> = (props) => {
                 }}
                 onClick={() => {
                     sessionStorage.queryParams = JSON.stringify(queryParams);
+                    sessionStorage.selectedChart = selectedChart;
                 }}
             >
                 Visualize

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, Container, Fade } from 'reactstrap';
 import Background from '../components/Background';
+import BarChartComponent from '../components/BarChart';
 import Gradient from '../components/Gradient';
 import LineChartComponent from '../components/LineChart';
 import LoadingComponent from '../components/Loading';
@@ -18,18 +19,18 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
     const [keys, setKeys] = useState<string[]>([]);
     const [error, setError] = useState<string>('');
 
+    const queryParams = JSON.parse(sessionStorage.queryParams);
+    const filterTimeParam = JSON.parse(sessionStorage.filterTimeParam);
+    const aggregateTimeParam = sessionStorage.aggregateTimeParam;
+    const selectedChart = sessionStorage.selectedChart;
+
     useEffect(() => {
+        logging.debug('visualization received:', { queryParams, filterTimeParam, aggregateTimeParam, selectedChart });
         getMeasurements();
     }, []);
 
     const getMeasurements = async () => {
         logging.info(`This is just a test api call to: ${config.server.url}/get/measurements`);
-
-        const queryParams = JSON.parse(sessionStorage.queryParams);
-        const filterTimeParam = JSON.parse(sessionStorage.filterTimeParam);
-        const aggregateTimeParam = sessionStorage.aggregateTimeParam;
-
-        logging.debug('visualization received:', { queryParams, filterTimeParam, aggregateTimeParam });
 
         try {
             const response = await axios({
@@ -71,13 +72,22 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
     );
 
     const chart = (
-        // TODO support multiple chart types
         <div className="mt-5 d-flex justify-content-center ">
-            <Card className="text-center p-5 mt-5">
-                <LineChartComponent data={measurements} keys={keys} />
-            </Card>
+            <Card className="text-center p-5 mt-5">{displaySelectedChart()}</Card>
         </div>
     );
+
+    function displaySelectedChart() {
+        if (selectedChart === 'Line Chart') {
+            return <LineChartComponent data={measurements} keys={keys} />;
+        } else if (selectedChart === 'Bar Chart') {
+            return <BarChartComponent data={measurements} keys={keys} />;
+        } else if (selectedChart === 'Scatter Plot') {
+            // TODO scatter plot
+        } else {
+            return null;
+        }
+    }
 
     if (loading) {
         return <LoadingComponent>Loading chart...</LoadingComponent>;

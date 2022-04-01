@@ -1,19 +1,19 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar } from 'recharts';
 import { colors } from '../../assets/colors';
 
-export interface ILineChart {
+export interface IBarChart {
     data: Array<any>;
     keys: Array<string>;
 }
 
-const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
+const BarChartComponent: React.FunctionComponent<IBarChart> = (props) => {
     const { data, keys } = props;
 
     return (
         <div style={{ width: 1000, height: 500 }}>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart
+                <BarChart
                     data={data}
                     margin={{
                         top: 5,
@@ -35,12 +35,12 @@ const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
                     <Legend />
                     {keys.map((key, index) => {
                         if (index > 0) {
-                            return <Line key={index} type="monotone" dataKey={keys[index]} stroke={colors[index]} activeDot={{ r: 4 }} />;
+                            return <Bar dataKey={keys[index]} fill={colors[index]} legendType={'plainline'} />;
                         }
                     })}
-                </LineChart>
+                </BarChart>
             </ResponsiveContainer>
         </div>
     );
 };
-export default LineChartComponent;
+export default BarChartComponent;
