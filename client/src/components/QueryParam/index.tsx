@@ -11,11 +11,12 @@ export interface IQueryParamProps {
     countries: ICountry[];
     indicators: IIndicator[];
     queryParams: IQueryParam[];
-    index: number;
+    paramIndex: number;
+    selectedChart: string;
 }
 
-const LineChartQueryParam: React.FunctionComponent<IQueryParamProps> = (props) => {
-    let { countries, indicators, queryParams, setQueryParams, index } = props;
+const QueryParam: React.FunctionComponent<IQueryParamProps> = (props) => {
+    let { countries, indicators, queryParams, setQueryParams, paramIndex, selectedChart } = props;
 
     const removeButtonStyle: React.CSSProperties = {
         width: '50%',
@@ -33,7 +34,7 @@ const LineChartQueryParam: React.FunctionComponent<IQueryParamProps> = (props) =
             outline
             size="sm"
             onClick={() => {
-                removeQueryParam(index);
+                removeQueryParam(paramIndex);
             }}
         >
             Remove
@@ -46,19 +47,24 @@ const LineChartQueryParam: React.FunctionComponent<IQueryParamProps> = (props) =
         setQueryParams(newQueryParams);
     };
 
+    function displayRemoveButton() {
+        if (selectedChart !== 'Scatter Plot') return removeButton;
+        return null;
+    }
+
     return (
         <Col sm="15" className="mr-2 p-2">
             <Card body>
-                <CountriesDropdown countries={countries} queryParams={queryParams} setQueryParams={setQueryParams} paramIndex={index}></CountriesDropdown>
+                <CountriesDropdown countries={countries} queryParams={queryParams} setQueryParams={setQueryParams} paramIndex={paramIndex}></CountriesDropdown>
 
-                <IndicatorsDropdown indicators={indicators} queryParams={queryParams} setQueryParams={setQueryParams} paramIndex={index}></IndicatorsDropdown>
+                <IndicatorsDropdown indicators={indicators} queryParams={queryParams} setQueryParams={setQueryParams} paramIndex={paramIndex}></IndicatorsDropdown>
 
                 <br></br>
 
-                {removeButton}
+                {displayRemoveButton()}
             </Card>
         </Col>
     );
 };
 
-export default LineChartQueryParam;
+export default QueryParam;

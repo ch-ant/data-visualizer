@@ -35,7 +35,7 @@ const BarChartComponent: React.FunctionComponent<IBarChart> = (props) => {
                     <Legend />
                     {keys.map((key, index) => {
                         if (index > 0) {
-                            return <Bar dataKey={keys[index]} fill={colors[index]} legendType={'plainline'} />;
+                            return <Bar dataKey={key} fill={colors[index]} legendType={'plainline'} />;
                         }
                     })}
                 </BarChart>

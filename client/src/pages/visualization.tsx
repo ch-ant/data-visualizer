@@ -8,6 +8,7 @@ import Gradient from '../components/Gradient';
 import LineChartComponent from '../components/LineChart';
 import LoadingComponent from '../components/Loading';
 import Navigation from '../components/Navigation';
+import ScatterPlotComponent from '../components/ScatterPlot';
 import config from '../config/config';
 import logging from '../config/logging';
 import IPageProps from '../interfaces/page';
@@ -83,7 +84,7 @@ const Visualization: React.FunctionComponent<IPageProps> = (props) => {
         } else if (selectedChart === 'Bar Chart') {
             return <BarChartComponent data={measurements} keys={keys} />;
         } else if (selectedChart === 'Scatter Plot') {
-            // TODO scatter plot
+            return <ScatterPlotComponent data={measurements} keys={keys} />;
         } else {
             return null;
         }

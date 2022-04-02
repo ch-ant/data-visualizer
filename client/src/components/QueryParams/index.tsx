@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Fade, Row } from 'reactstrap';
 import logging from '../../config/logging';
 import ICountry from '../../model/country';
@@ -17,6 +17,10 @@ export interface IQueryParamsProps {
 const QueryParams: React.FunctionComponent<IQueryParamsProps> = (props) => {
     const { countries, indicators, selectedChart } = props;
     const [queryParams, setQueryParams] = useState<IQueryParam[]>([]);
+
+    useEffect(() => {
+        if (selectedChart === 'Scatter Plot') addQueryParamsForScatterPlot();
+    }, []);
 
     const addCountryIndicatorButton = (
         <Button
@@ -37,6 +41,10 @@ const QueryParams: React.FunctionComponent<IQueryParamsProps> = (props) => {
         setQueryParams([...queryParams, { countryId: BigInt(0), indicatorId: BigInt(0) }]);
 
         logging.debug('Query params: ', queryParams);
+    }
+
+    function addQueryParamsForScatterPlot() {
+        setQueryParams([...queryParams, { countryId: BigInt(0), indicatorId: BigInt(0) }, { countryId: BigInt(0), indicatorId: BigInt(0) }]);
     }
 
     const addCountryIndicatorButtonStyle = {
@@ -66,7 +74,7 @@ const QueryParams: React.FunctionComponent<IQueryParamsProps> = (props) => {
     );
 
     function displayAddCountryIndicatorButton() {
-        if (selectedChart === 'Scatter Plot' && queryParams.length === 2) return null;
+        if (selectedChart === 'Scatter Plot') return null;
         return <div style={addCountryIndicatorButtonStyle}> {addCountryIndicatorButton} </div>;
     }
 
@@ -74,7 +82,15 @@ const QueryParams: React.FunctionComponent<IQueryParamsProps> = (props) => {
         return queryParams.map((param, index) => {
             return (
                 <Fade key={index} style={{ width: '50%' }}>
-                    <QueryParam key={index} countries={countries} indicators={indicators} queryParams={queryParams} setQueryParams={setQueryParams} index={index}></QueryParam>
+                    <QueryParam
+                        key={index}
+                        countries={countries}
+                        indicators={indicators}
+                        queryParams={queryParams}
+                        setQueryParams={setQueryParams}
+                        paramIndex={index}
+                        selectedChart={selectedChart}
+                    ></QueryParam>
                 </Fade>
             );
         });

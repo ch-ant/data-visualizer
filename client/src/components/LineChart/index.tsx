@@ -35,7 +35,7 @@ const LineChartComponent: React.FunctionComponent<ILineChart> = (props) => {
                     <Legend />
                     {keys.map((key, index) => {
                         if (index > 0) {
-                            return <Line key={index} type="monotone" dataKey={keys[index]} stroke={colors[index]} activeDot={{ r: 4 }} />;
+                            return <Line key={index} type="monotone" dataKey={key} stroke={colors[index]} activeDot={{ r: 4 }} />;
                         }
                     })}
                 </LineChart>
