@@ -27,7 +27,7 @@ const ScatterPlotComponent: React.FunctionComponent<IScatterChart> = (props) => 
                     <XAxis type="number" dataKey={keys[1]} name={keys[1]} />
                     <YAxis type="number" dataKey={keys[2]} name={keys[2]} />
                     <Tooltip
-                        itemStyle={{ background: `rgba(38, 38, 38, 1.0)`, color: `${colors[2]}` }}
+                        itemStyle={{ background: `rgba(38, 38, 38, 1.0)`, color: `${colors[6]}` }}
                         wrapperStyle={{ background: `rgba(38, 38, 38, 1.0)` }}
                         contentStyle={{ background: `rgba(38, 38, 38, 1.0)` }}
                         label={{ background: `rgba(38, 38, 38, 1.0)` }}

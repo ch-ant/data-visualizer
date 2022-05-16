@@ -1,0 +1,35 @@
+## CREATE BAR CHARTS
+
+- AS A: user
+- I WANT: to create bar charts for multiple indicators of multiple countries
+- SO THAT: to visually draw conclusions about the depicted data
+
+## CREATE LINE CHARTS
+
+- AS A: user
+- I WANT: to create line charts for multiple indicators of multiple countries
+- SO THAT: to visually draw conclusions about the depicted data
+
+## CREATE SCATTER PLOTS
+
+- AS A: user
+- I WANT: to create scatter plots for two indicators of two countries
+- SO THAT: to visually draw conclusions about the depicted data
+
+## SEARCH AMONG INDICATORS
+
+- AS A: user
+- I WANT: to search among the available indicators based on keywords
+- SO THAT: to ease the process of selecting an indicator for visualization
+
+## FILTER YEARS
+
+- AS A: user
+- I WANT: to filter the years of the selected indicators for visualization
+- SO THAT: to visualize only the desired year periods
+
+## AGGREGATE YEARS
+
+- AS A: user
+- I WANT: to aggregate years into 5-year or 10-year periods
+- SO THAT: to compress the visualized data

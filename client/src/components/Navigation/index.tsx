@@ -24,7 +24,8 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
                     Home
                 </NavbarBrand>
                 <Nav className="mr-auto" navbar></Nav>
-                <div>
+                {/* These buttons don't serve a purpose at this point hence they are commented */}
+                {/* <div>
                     <Button tag={Link} to="/visual">
                         <i className="far fa-sticky-note mr-2"></i>
                         About
@@ -33,7 +34,7 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
                     <Button size="sm" tag={Link} to="/visual">
                         Demo
                     </Button>
-                </div>
+                </div> */}
             </Container>
         </Navbar>
     );
