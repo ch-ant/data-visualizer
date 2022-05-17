@@ -9,8 +9,11 @@ import { Link } from 'react-router-dom';
 import Gradient from '../components/Gradient';
 
 const HomePageText = `
-        The final goal of the project was to implement a data visualization application which utilizes data integrated into a database. The application should be able to be used in order to visually
-        draw conclusions regarding the depicted data. The data which populates the database was extracted from The World Bank and it contains various measurements per year for different indicators for
+        Data visualizer allows one to visually draw 
+        data related conclusions in an instant. No more 
+        scratching your head, looking at endless numbers. 
+        The currently supported data contains various measurements 
+        per year for different indicators for
         the countries of the European Union.`;
 
 const homePageContents = (
