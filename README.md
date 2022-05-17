@@ -51,3 +51,20 @@ Users can:
 - run client for development:
   - cd data-visualizer/client
   - npm start
+
+<br>
+
+## Demo Images
+
+- Home Page - User is greeted with a welcome message
+  ![](/doc/screens/home.png)
+  <br>
+
+- Select Page - The desired chart type and data for visualization are selected
+
+  ![](/doc/screens/select.png)
+  <br>
+
+- Visualization Page - Data gets visualized
+  ![](/doc/screens/visual.png)
+  <br>
