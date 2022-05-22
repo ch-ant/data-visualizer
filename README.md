@@ -1,6 +1,6 @@
 # Data Visualizer
 
-Data Visualizer is an end-to-end software that consists of a MySQL database, a REST API server and a React Web App client. Developed during the [Advanced Topics of Database Technology and Applications](https://www.cs.uoi.gr/course/advanced-topics-of-database-technology-and-applications/?lang=en) course [@cse.uoi.gr](https://www.cs.uoi.gr/).<br><br>
+Data Visualizer is a full stack web application that consists of a MySQL database, a REST API server and a React Web App client. Developed during the [Advanced Topics of Database Technology and Applications](https://www.cs.uoi.gr/course/advanced-topics-of-database-technology-and-applications/?lang=en) course [@cse.uoi.gr](https://www.cs.uoi.gr/).<br><br>
 
 ## Summary
 
@@ -17,11 +17,11 @@ The final goal of the project was to implement a data visualization application 
 This section contains a brief overview of the technologies used:
 
 - [MySQL](https://www.mysql.com/) & [MySQL Workbench](https://www.mysql.com/products/workbench/) as a DBMS and database visual tool respectively.
-- [Python](https://www.python.org/) as programming language to develop the scripts that transform extracted data to the desired format for loading into the database.
+- [Python](https://www.python.org/) as a programming language to develop the scripts that transform extracted data to the desired format for loading into the database.
 - [GitHub](https://github.com/) for version control. Project repo [here](https://github.com/ch-ant/data-visualizer).
 - [Trello](https://trello.com/) for project management and organization. Project board [here](https://trello.com/b/v5u92IBT/data-visualizer). The project board contains cards with all the tasks regarding the implementation of the project as well as various useful information in the form of links that was studied during development.
 - [Node.js with Typescript](https://nodejs.dev/learn/nodejs-with-typescript) as a programming language for both the server and the client.
-- [React](https://reactjs.org/) as a general library to develop the client UI. Some notable react libraries that were used are [axios](https://www.npmjs.com/package/axios) to implement that API calls and [recharts](https://recharts.org/en-US/) to draw the visualization charts.
+- [React](https://reactjs.org/) as a general library to develop the client UI. Some notable react libraries that were used are [axios](https://www.npmjs.com/package/axios) to implement the API calls and [recharts](https://recharts.org/en-US/) to draw the visualization charts.
 - [VSCode](https://code.visualstudio.com/) as an IDE.
 
 <br>
